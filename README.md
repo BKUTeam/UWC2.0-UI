@@ -17,7 +17,7 @@
 └── view
     └── readme.md
 ```
-# Simple rules when using Git.
+# Simple rules when using Git:
 1. For development, you have to create a new branch like this: `feat/your_feature`. Eg: `feat/home`
 2. Before merging your branch to `main`,  
   - Ensure that your ticket passes the definition of done
@@ -28,7 +28,7 @@
 4. Before coding, you have to make sure that the source code is the latest version, use `git checkout main && git pull main`.
 
 
-## Tech included
+## Tech included:
 - `ReactJS` Base source
 
 

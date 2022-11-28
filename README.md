@@ -17,6 +17,7 @@
 └── view
     └── readme.md
 ```
+ <br/><br/>
 # Simple rules when using Git:
 1. For development, you have to create a new branch like this: `feat/your_feature`. Eg: `feat/home`
 2. Before merging your branch to `main`,  
@@ -26,12 +27,10 @@
 3. Commitment (`git commit -m`) follows this format: `feature|fix(branch_name): your message`. 
   - Eg: `feature(home): new function`, `fix(home): fix button`,...
 4. Before coding, you have to make sure that the source code is the latest version, use `git checkout main && git pull main`.
-
-
+ <br/><br/>
 ## Tech included:
 - `ReactJS` Base source
-
-
+ <br/><br/>
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

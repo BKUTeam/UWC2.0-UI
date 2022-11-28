@@ -1,6 +1,7 @@
-#UWC2.0 UI
+# UWC2.0 UI
 
 ## Source tree:
+```
 ├── package.json
 ├── package-lock.json
 ├── public
@@ -15,7 +16,7 @@
 │   └── utils
 └── view
     └── readme.md
-
+```
 # Simple rules when using Git.
 1. For development, you have to create a new branch like this: `feat/your_feature`. Eg: `feat/home`
 2. Before merging your branch to `main`,  

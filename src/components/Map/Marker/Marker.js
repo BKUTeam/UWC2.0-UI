@@ -4,7 +4,9 @@ import Popup from 'reactjs-popup';
 
 import { depot, mcp } from '~/assets/icon';
 import styles from './Marker.module.scss';
-import './Normal.css';
+import './Modal.css';
+import geojson from '../data';
+
 const cx = classNames.bind(styles);
 function MarkerComponent({ children, item }) {
     let icon = mcp.logo;
@@ -27,7 +29,7 @@ function MarkerComponent({ children, item }) {
             // }}
         >
             <Popup
-                className={cx('popup')}
+                // className={cx('popup')}
                 // className=""
                 trigger={
                     <div className={cx('marker')}>
@@ -38,12 +40,33 @@ function MarkerComponent({ children, item }) {
                 position="right-center"
             >
                 {(close) => (
-                    <div className="modal">
-                        <div className="header">{item.properties.type || 'mcp'}</div>
-                        <div className="content"> {item.properties.description}</div>
-                        <div className="actions">
+                    <div className={cx('modal-box')}>
+                        <div className={cx('modal-header')}>{item.properties.type || 'mcp'}</div>
+                        <div className={cx('modal-content')}>
+                            <div className={cx('modal-content-item')}>
+                                <p>title:</p>
+                                <p>abc</p>
+                            </div>
+                            <div className={cx('modal-content-item')}>
+                                <p>title:</p>
+                                <p>abc</p>
+                            </div>
+                            <div className={cx('modal-content-item')}>
+                                <p>title:</p>
+                                <p>abc</p>
+                            </div>
+                            <div className={cx('modal-content-item')}>
+                                <p>title:</p>
+                                <p>abc</p>
+                            </div>
+                            <div className={cx('modal-content-item')}>
+                                <p>title:</p>
+                                <p>abc</p>
+                            </div>
+                        </div>
+                        <div className={cx('actions')}>
                             <button
-                                className="button"
+                                className={cx('modal-btn')}
                                 onClick={() => {
                                     close();
                                 }}

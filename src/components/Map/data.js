@@ -1,4 +1,4 @@
-var geojson = {
+var markerData = {
     type: 'FeatureCollection',
     features: [
         {
@@ -50,4 +50,53 @@ var geojson = {
     ],
     type: 'FeatureCollection',
 };
-export default geojson;
+const routeData = [
+    {
+        layer: {
+            id: 'route',
+            type: 'line',
+            paint: {
+                'line-color': '#3887be',
+                'line-width': 5,
+                'line-opacity': 0.75,
+            },
+        },
+        source: {
+            type: 'geojson',
+            data: {
+                type: 'Feature',
+                properties: {},
+                geometry: {
+                    type: 'LineString',
+                    coordinates: [
+                        [106.657969, 10.772135],
+                        [106.657737, 10.772016],
+                        [106.656152, 10.777712],
+                        [106.660127, 10.782025],
+                        [106.66017, 10.782177],
+                        [106.6609, 10.782873],
+                        [106.660416, 10.783108],
+                        [106.659913, 10.782601],
+                        [106.659745, 10.782539],
+                        [106.659161, 10.782442],
+                        [106.658798, 10.782727],
+                        [106.658629, 10.782545],
+                        [106.658832, 10.782308],
+                    ],
+                },
+            },
+        },
+    },
+];
+const mapStyles = 'mapbox://styles/tanlethanh/clb4m2eog000b14p0arlva7q9';
+let center = { lng: 106.65797153503293, lat: 10.772106611692124 };
+const defaultViewport = {
+    viewport: {
+        width: '100%',
+        height: '100%',
+        latitude: center.lat,
+        longitude: center.lng,
+        zoom: 15,
+    },
+};
+export { routeData, center, markerData, mapStyles, defaultViewport };

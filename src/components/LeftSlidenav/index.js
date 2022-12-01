@@ -1,54 +1,18 @@
 import React from 'react';
 import './style.css';
-// const dashboardLinks = [
-//     {
-//         header: '',
-//         Links: [
-//             {
-//                 icon: <FaRegCalendar />,
-//                 text: 'Today',
-//             },
-//             {
-//                 icon: <FaRegClock />,
-//                 text: 'Schedule',
-//             },
-//             {
-//                 icon: <MdMessage />,
-//                 text: 'Message',
-//             },
-//             {
-//                 icon: <FaTruckMoving />,
-//                 text: 'Dispatch',
-//             },
-//         ],
-//     },
-// {
-//     header: 'Workers',
-//     Links: [
-//         {
-//             icon: <FaUserFriends />,
-//             text: 'Employees',
-//         },
-//         {
-//             icon: <FaTruck />,
-//             text: 'Vehicals',
-//         },
-//     ],
-// },
-// {
-//     header: 'Facilities',
-//     Links: [
-//         {
-//             icon: <FaChartArea />,
-//             text: 'MCP',
-//         },
-//         {
-//             icon: <BsHouseDoorFill />,
-//             text: 'Depot',
-//         },
-//     ],
-// },
-// ];
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faUser } from '@fortawesome/free-regular-svg-icons';
+import {
+    faTruck,
+    faClock,
+    faMessage,
+    faCalendar,
+    faUser,
+    faTruckMoving,
+    faWarehouse,
+    faDumpster,
+} from '@fortawesome/free-solid-svg-icons';
+
 export const LeftSlidenav = () => {
     return (
         <div className="container-left-slidenav">
@@ -66,15 +30,23 @@ export const LeftSlidenav = () => {
                 <div className="header-left-slidenav-body">
                     <div>
                         <div className="link-left-slidenav">
-                            icon
-                            <span>Today</span>
+                            <FontAwesomeIcon icon={faCalendar} /> <span>Today</span>
                         </div>
                         <div className="link-left-slidenav">
-                            icon
+                            <FontAwesomeIcon icon={faClock} />
                             <span>Schedule</span>
                         </div>
+                        <div className="link-left-slidenav">
+                            <div className="container-left-sidenav-message">
+                                <div>
+                                    <FontAwesomeIcon icon={faMessage} />
+                                    <span>Message</span>
+                                </div>
+                                <div className="number-message">1</div>
+                            </div>
+                        </div>
                         <div className="link-left-slidenav active">
-                            icon
+                            <FontAwesomeIcon icon={faTruck} />
                             <span>Dispatch</span>
                         </div>
                     </div>
@@ -83,23 +55,23 @@ export const LeftSlidenav = () => {
                         <h3 className="title-links">Workers</h3>
                         <div className="link-left-slidenav">
                             {/* <FaRegCalendar /> */}
-                            icon
-                            <span>Message</span>
+                            <FontAwesomeIcon icon={faUser} />
+                            <span>Employees</span>
                         </div>
                         <div className="link-left-slidenav">
-                            icon
-                            <span>Message</span>
+                            <FontAwesomeIcon icon={faTruckMoving} />
+                            <span>Veticles</span>
                         </div>
                     </div>
                     <hr />
                     <div>
                         <h3 className="title-links">Facilities</h3>
                         <div className="link-left-slidenav">
-                            icon
+                            <FontAwesomeIcon icon={faDumpster} />
                             <span>MCP</span>
                         </div>
                         <div className="link-left-slidenav">
-                            icon
+                            <FontAwesomeIcon icon={faWarehouse} />
                             <span>Depot</span>
                         </div>
                     </div>

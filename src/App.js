@@ -1,8 +1,13 @@
+import { LeftSlidenav } from './components/LeftSlidenav';
+import { Footer } from './components/Footer/index';
 function App() {
     return (
-        <div className="App">
-            <h1>App page</h1>
-        </div>
+        <>
+            <div className="left-sidenav">
+                <LeftSlidenav />
+            </div>
+            <Footer />
+        </>
     );
 }
 

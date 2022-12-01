@@ -1,32 +1,78 @@
+@import 'normalize.css';
+
+:root {
+    --default-left-sidebar-width-percent: 15%;
+    --default-right-sidebar-width-percent: 25%;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 .app {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.header {
-}
-
-.content {
-    width: 100%;
-    display: flex;
-}
-
-.main-content {
-    flex: 1;
-    width: 1000px;
-    height: 700px;
+    flex-flow: row wrap;
+    width: 100vw;
+    height: 100vh;
+    z-index: -5;
 }
 
 .sidenav {
-    width: 200px;
+    height: 100%;
+    padding: 50px;
 }
 
 .left-sidenav {
+    position: absolute;
+    left: 0;
+    min-width: 60px;
+    width: var(--default-left-sidebar-width-percent);
+    min-height: 100vh;
+    background-color: green;
+    z-index: 3;
+}
+
+.content {
+    position: absolute;
+    right: 0;
+    width: calc(100% - var(--default-left-sidebar-width-percent));
+    min-height: 100%;
+    height: 100%;
+    z-index: 2;
+}
+.header {
+    position: absolute;
+    height: 50px;
+    width: 100%;
+    background-color: aqua;
+    z-index: 5;
+}
+
+.main-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
 }
 
 .right-sidenav {
+    position: absolute;
+    right: 0;
+    width: var(--default-right-sidebar-width-percent);
+    min-width: 200px;
+    background-color: red;
+    z-index: 3;
 }
 
 .footer {
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    width: calc(100% - var(--default-right-sidebar-width-percent));
+    background-color: wheat;
+    z-index: 1;
 }

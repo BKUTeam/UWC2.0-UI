@@ -1,5 +1,24 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.left-sidenav {
+    top: 0;
+    position: absolute;
+    left: 0;
+    min-width: 60px;
+    width: 15%;
+    min-height: 100vh;
+    background-color: green;
+    z-index: 3;
+}
+
 .container-left-slidenav {
     color: #fff;
+    padding: 15px;
+    background: #2e4d89;
 }
 .header-left-slidenav-header {
     background: linear-gradient(
@@ -51,9 +70,11 @@
     display: flex;
     cursor: pointer;
     align-items: center;
-    margin-bottom: 20px;
-    padding: 2px 1px;
+    margin-bottom: 10px;
+    padding: 5px;
+    transition: all 0.3s linear;
 }
+.container-left-sidenav-message span,
 .link-left-slidenav > span {
     font-family: 'Montserrat';
     display: inline-block;
@@ -62,6 +83,9 @@
     font-size: 200;
 }
 .link-left-slidenav.active {
+    background: rgba(0, 0, 0, 0.2);
+}
+.link-left-slidenav:hover {
     background: rgba(0, 0, 0, 0.2);
 }
 .header-left-slidenav-body .title-links {
@@ -73,10 +97,35 @@
     box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
     padding: 10px;
+    cursor: pointer;
 }
 .container-left-slidenav {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    height: 100%;
+    height: 100vh;
+}
+.number-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    font-weight: bold;
+    width: 25px;
+    height: 25px;
+
+    background: #ffffff;
+    border-radius: 5px;
+    color: #000;
+}
+.flex-item-unique-oke,
+.container-left-sidenav-message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.container-left-sidenav-message > div {
+    display: flex;
+    align-items: center;
 }

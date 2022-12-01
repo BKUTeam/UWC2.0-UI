@@ -1,0 +1,39 @@
+
+
+header {
+    position: relative;
+}
+
+.first {
+    text-align: center;
+    vertical-align: middle;
+    background-color: #98CDA1;
+    padding: 4px 2px;
+    font-weight: 600;
+}
+
+.second {
+    text-align: left;
+    vertical-align: middle;
+    background-color: #253F73;
+    color: white;
+    padding: 4px 2px;
+}
+
+.third {
+    text-align: right;
+    vertical-align: middle;
+    background-color: white;
+    padding: 4px 2px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+}
+
+.left-text {
+    margin-left: 20px;
+    font-weight: 400;
+}
+
+.right-text {
+    margin-right: 20px;
+    font-weight: 600;
+}

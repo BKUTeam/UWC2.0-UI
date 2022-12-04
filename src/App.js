@@ -10,17 +10,25 @@ import { routeData as rData, markerData as mData } from '~/components/Map/data';
 const cx = classNames.bind(styles);
 function App() {
     const [routeData, setRouteData] = useState([]);
-    const [markerData, setMarkerData] = useState([]);
+    const [mcpInfo, setmcpInfo] = useState([]);
+    const [depotInfo, setdepotInfo] = useState([]);
     useEffect(() => {
-        setTimeout(() => {
-            setRouteData(rData);
-        }, 3000);
+        fetch('http://localhost:5000/api/resources/mcps/')
+            .then((res) => res.json())
+            .then((data) => {
+                setmcpInfo(data);
+            });
+        fetch('http://localhost:5000/api/resources/depots/')
+            .then((res) => res.json())
+            .then((data) => {
+                setdepotInfo(data);
+            });
     }, []);
-    useEffect(() => {
-        setTimeout(() => {
-            setMarkerData(mData.features);
-        }, 3000);
-    }, []);
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setMarkerData(mData.features);
+    //     }, 3000);
+    // }, []);
 
     return (
         <div className={cx('app')}>
@@ -31,7 +39,7 @@ function App() {
                     <RightSideBar />
                 </div>
                 <div className={cx('main-content')}>
-                    <Map routeData={routeData} markerData={markerData} />
+                    <Map routeData={routeData} markerData={[...mcpInfo, ...depotInfo]} />
                 </div>
                 <div className={cx('footer')}>Footer</div>
             </div>

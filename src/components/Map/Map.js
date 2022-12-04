@@ -70,8 +70,8 @@ function Map({ routeData, markerData }) {
             setRouteState(true);
         }
     }, [routeData]);
-    console.log('marker: ', markerData);
-    console.log('route: ', routeData);
+    // console.log('marker: ', markerData);
+    // console.log('route: ', routeData);
     return (
         <div className={cx('map-wrapper')}>
             <div className={cx('map-container')}>

@@ -4,11 +4,10 @@ import styles from './Marker.module.scss';
 import { mcp } from '~/assets/icon';
 
 const cx = classNames.bind(styles);
-function MCPMarker({ item, content }) {
+function MCPMarker({ item, content, onClickHandle }) {
+    const url = `http://localhost:5000/api/resources/mcps/` + item.id;
     return (
         <Popup
-            // className={cx('popup')}
-            // className=""
             trigger={
                 <div className={cx('marker')}>
                     <img className={cx('icon', 'mcp')} src={mcp.logo}></img>

@@ -60,9 +60,10 @@
 }
 
 .right-sidenav {
-    padding: 400px 0px;
+    padding: 0px 0px;
     position: absolute;
     right: 0;
+    top: 110px;
     width: var(--default-right-sidebar-width-percent);
     min-width: 200px;
     background-color: white;

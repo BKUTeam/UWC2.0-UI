@@ -1,14 +1,16 @@
 import { Row, Col} from "react-bootstrap";
 import RouteCard from './RouteCard'
 import InfoStyles from './info.module.scss'
+import { Button } from "react-bootstrap";
 
-export default function RenderInfo() {
+export default function RenderInfo({setShowInfo, showInfo}) {
+    
     return (
         <div className={InfoStyles['info-bar']}>
-            {/* <Button className="ms-3">
+            <Button className="ms-3" onClick={() => {setShowInfo(!showInfo)}}>
                 <i class="fa-solid fa-angle-left me-2"></i>
                 Quay lại
-            </Button> */}
+            </Button>
             <div className={InfoStyles.title}>Lê Thanh Tân</div>
             <Row className={InfoStyles.content}>
                 <Col>

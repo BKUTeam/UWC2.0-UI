@@ -3,21 +3,19 @@ import CardStyle from './card.module.scss'
 import { useState } from "react";
 import CollectorInfo from '../CollectorInfo/info'
 
-function RenderCard() {
-    const [showInfo, setShowInfo] = useState(false);
-    const [showList, setShowList] = useState(true);
+function RenderCard({showInfo, setShowInfo, completed}) {
+    var ID = 1;
 
     return (
         <>
             {
-                showList &&
-                <div className={CardStyle.card}>
+                <div className={completed ? CardStyle['completed-card'] : CardStyle['uncompleted-card']}>
                 <Row>
                     <Col>
                         <div>Lê Thanh Tânnn</div>
                     </Col>
                     <Col className={CardStyle.right}>
-                        <i onClick={() => {setShowInfo(!showInfo); setShowList(!showList)}} class="fa-solid fa-circle-chevron-right"></i>
+                        <i onClick={() => {setShowInfo(!showInfo)}} class="fa-solid fa-circle-chevron-right"></i>
                     </Col>
                 </Row>
                 <hr/>
@@ -37,7 +35,7 @@ function RenderCard() {
                 </Row>
             </div>
             }
-            <div>
+            {/* <div>
                 {
                     showInfo && 
                     <>
@@ -48,7 +46,7 @@ function RenderCard() {
                         <CollectorInfo/>
                     </>
                 }
-            </div>
+            </div> */}
         </>  
         
     );

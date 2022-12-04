@@ -3,7 +3,7 @@ import CardStyle from './card.module.scss'
 import { useState } from "react";
 import CollectorInfo from '../../Collector/CollectorInfo/info'
 
-function RenderCard() {
+function RenderCard({completed}) {
     const [showInfo, setShowInfo] = useState(false);
     const [showList, setShowList] = useState(true);
 
@@ -11,7 +11,7 @@ function RenderCard() {
         <>
             {
                 showList &&
-                <div className={CardStyle.card}>
+                <div className={completed ? CardStyle['completed-card'] : CardStyle['uncompleted-card']}>
                 <Row>
                     <Col>
                         <div>Lê Thanh Tân</div>

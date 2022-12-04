@@ -1,0 +1,79 @@
+@import 'normalize.css';
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css');
+:root {
+    --default-left-sidebar-width-percent: 15%;
+    --default-right-sidebar-width-percent: 25%;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.app {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100vw;
+    height: 100vh;
+    z-index: -5;
+}
+
+.sidenav {
+    height: 100%;
+    padding: 50px;
+}
+
+.left-sidenav {
+    position: absolute;
+    left: 0;
+    min-width: 60px;
+    width: var(--default-left-sidebar-width-percent);
+    min-height: 100vh;
+    background-color: green;
+    z-index: 3;
+}
+
+.content {
+    position: absolute;
+    right: 0;
+    width: calc(100% - var(--default-left-sidebar-width-percent));
+    min-height: 100%;
+    height: 100%;
+    z-index: 2;
+}
+.header {
+    position: absolute;
+    height: 50px;
+    width: 100%;
+    background-color: aqua;
+    z-index: 5;
+}
+
+.main-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.right-sidenav {
+    padding: 400px 0px;
+    position: absolute;
+    right: 0;
+    width: var(--default-right-sidebar-width-percent);
+    min-width: 200px;
+    background-color: white;
+    z-index: 3;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    width: calc(100% - var(--default-right-sidebar-width-percent));
+    background-color: wheat;
+    z-index: 1;
+}

@@ -6,48 +6,46 @@ function RenderCard() {
         <div className={CardStyle.card}>
             <Row>
                 <Col>
-                    <div className='fw-bold' style={{"color":"#253F73"}}>Thu gom 2 điểm</div>
+                    <div className="fw-bold" style={{ color: '#253F73' }}>
+                        Thu gom 2 điểm
+                    </div>
                 </Col>
                 <Col className={CardStyle.right}>
-                    <i className="fa-solid fa-circle-minus" style={{"color":"#253F73"}}></i>
+                    <i className="fa-solid fa-circle-minus" style={{ color: '#253F73' }}></i>
                 </Col>
             </Row>
-            <hr/>
+            <hr />
             <Row>
                 <Col>
-                    <div>
-                        523 Tô Hiến Thành
-                    </div>
+                    <div>523 Tô Hiến Thành</div>
                 </Col>
-                <Col  className={CardStyle.right}>
+                <Col className={CardStyle.right}>
                     <div>Quận 10</div>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <div>
-                        523 Tô Hiến Thành
-                    </div>
+                    <div>523 Tô Hiến Thành</div>
                 </Col>
-                <Col  className={CardStyle.right}>
+                <Col className={CardStyle.right}>
                     <div>Quận 10</div>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <span className='fst-italic opacity-50'>7km</span>
+                    <span className="fst-italic opacity-50">7km</span>
                 </Col>
             </Row>
         </div>
-    )
+    );
 }
 
 function RenderCardList() {
-    return (  
+    return (
         <>
-            <RenderCard/>
-            <RenderCard/>
-            <RenderCard/>
+            <RenderCard />
+            <RenderCard />
+            <RenderCard />
         </>
     );
 }

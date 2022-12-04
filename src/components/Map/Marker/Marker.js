@@ -6,79 +6,31 @@ import { depot, mcp } from '~/assets/icon';
 import styles from './Marker.module.scss';
 import './Modal.css';
 import geojson from '../data';
+import MCPMarker from './MCPMarker';
+import DepotMarker from './DepotMarker';
+import { useState, useEffect } from 'react';
 
 const cx = classNames.bind(styles);
-function MarkerComponent({ children, item }) {
-    let icon = mcp.logo;
-    let mcpFlag = true;
-    if (item.properties.type === 'depot') {
-        icon = depot.logo;
-        mcpFlag = false;
-    }
-    const iconClasses = cx('icon', {
-        mcp: mcpFlag,
-        depot: !mcpFlag,
-    });
-    return (
-        <Marker
-            longitude={item.geometry.coordinates[0]}
-            latitude={item.geometry.coordinates[1]}
-            anchor="bottom"
-            // onClick={() => {
-            //     alert(item.properties.description);
-            // }}
-        >
-            <Popup
-                // className={cx('popup')}
-                // className=""
-                trigger={
-                    <div className={cx('marker')}>
-                        <img className={iconClasses} src={icon}></img>
-                    </div>
-                }
-                modal
-                position="right-center"
-            >
-                {(close) => (
-                    <div className={cx('modal-box')}>
-                        <div className={cx('modal-header')}>{item.properties.type || 'mcp'}</div>
-                        <div className={cx('modal-content')}>
-                            <div className={cx('modal-content-item')}>
-                                <p>title:</p>
-                                <p>abc</p>
-                            </div>
-                            <div className={cx('modal-content-item')}>
-                                <p>title:</p>
-                                <p>abc</p>
-                            </div>
-                            <div className={cx('modal-content-item')}>
-                                <p>title:</p>
-                                <p>abc</p>
-                            </div>
-                            <div className={cx('modal-content-item')}>
-                                <p>title:</p>
-                                <p>abc</p>
-                            </div>
-                            <div className={cx('modal-content-item')}>
-                                <p>title:</p>
-                                <p>abc</p>
-                            </div>
-                        </div>
-                        <div className={cx('actions')}>
-                            <button
-                                className={cx('modal-btn')}
-                                onClick={() => {
-                                    close();
-                                }}
-                            >
-                                Close modal
-                            </button>
-                        </div>
-                    </div>
-                )}
-            </Popup>
+function MarkerComponent({ children, item, popUpContent }) {
+    const [mcpFlag, setMCPFlag] = useState();
+    const [data, setData] = useState();
+    const [coordinates, setCoor] = useState([]);
+    useEffect(() => {
+        if ('depot_id' in item) {
+            setMCPFlag(true);
+        } else {
+            setMCPFlag(false);
+        }
+        if ('gg_location' in item) {
+            setCoor(item.gg_location.split(','));
+        }
+        setData(item);
+    }, [item]);
+    return coordinates.length > 0 ? (
+        <Marker longitude={parseFloat(coordinates[1])} latitude={parseFloat(coordinates[0])} anchor="bottom">
+            {mcpFlag ? <MCPMarker item={item}></MCPMarker> : <DepotMarker item={item}></DepotMarker>}
         </Marker>
-    );
+    ) : null;
 }
 
 export default MarkerComponent;

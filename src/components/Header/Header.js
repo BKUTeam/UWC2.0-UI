@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import Styles from './header.module.scss';
 
 function RenderToday() {
@@ -15,7 +15,7 @@ function RenderToday() {
     return `${day}, ${month} ${date}, ${year}`;
 }    
 
-export default function Header() {
+export default function Header({handleSelect}) {
     return (
         <>
             <header>
@@ -28,7 +28,11 @@ export default function Header() {
                 </div>
                 <div className={Styles.third}>
                     <div className={Styles['right-text']}>
-                        <Button className='d-inline'>Janitor</Button>
+                        {/* <Button className='d-inline'>Janitor</Button> */}
+                        <Form.Select aria-label="select role" className={Styles.select} onChange={handleSelect}>
+                            <option defaultValue='Collector'>Collector</option>
+                            <option>Janitor</option>
+                        </Form.Select>
                         <div className='d-inline ms-2'>{RenderToday()}</div>
                     </div>
                 </div>

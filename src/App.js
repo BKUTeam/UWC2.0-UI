@@ -8,22 +8,29 @@ import Header from '~/components/Header/Header';
 import RightSideBar from '~/components/RightSideBar/Collector';
 
 export const MapContext = createContext();
+
+const getMcp = (setmcpInfo) => {
+    fetch('http://localhost:5000/api/resources/mcps/')
+        .then((res) => res.json())
+        .then((data) => {
+            setmcpInfo(data);
+        });
+};
+const getDepot = (setdepotInfo) => {
+    fetch('http://localhost:5000/api/resources/depots/')
+        .then((res) => res.json())
+        .then((data) => {
+            setdepotInfo(data);
+        });
+};
 const cx = classNames.bind(styles);
 function App() {
     const [routeData, setRouteData] = useState([]);
     const [mcpInfo, setmcpInfo] = useState([]);
     const [depotInfo, setdepotInfo] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/api/resources/mcps/')
-            .then((res) => res.json())
-            .then((data) => {
-                setmcpInfo(data);
-            });
-        fetch('http://localhost:5000/api/resources/depots/')
-            .then((res) => res.json())
-            .then((data) => {
-                setdepotInfo(data);
-            });
+        getMcp(setmcpInfo);
+        getDepot(setdepotInfo);
     }, []);
 
     return (
@@ -37,7 +44,7 @@ function App() {
                     </MapContext.Provider>
                 </div>
                 <div className={cx('footer')}>Footer</div>
-            </div>{' '}
+            </div>
             <div className={cx('sidenav', 'right-sidenav')}>
                 <RightSideBar />
             </div>

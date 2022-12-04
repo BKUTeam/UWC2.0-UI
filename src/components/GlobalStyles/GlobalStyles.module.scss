@@ -64,10 +64,12 @@
     position: absolute;
     right: 0;
     top: 110px;
+    height: calc(100% - 110px);
     width: var(--default-right-sidebar-width-percent);
     min-width: 200px;
     background-color: white;
     z-index: 3;
+    overflow-y: scroll;
 }
 
 .footer {

@@ -72,8 +72,14 @@
 .footer {
     position: absolute;
     bottom: 0;
-    height: 50px;
+    min-height: 200px;
     width: calc(100% - var(--default-right-sidebar-width-percent));
     background-color: wheat;
     z-index: 1;
+}
+
+@media screen and (max-width: 950px) {
+    .footer {
+        width: calc(100% - 200px);
+    }
 }

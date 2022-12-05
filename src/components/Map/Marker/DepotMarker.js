@@ -6,50 +6,31 @@ import { depot } from '~/assets/icon';
 import { useState } from 'react';
 import { useEffect } from 'react';
 const cx = classNames.bind(styles);
-function DepotPopup({ show, setShow, id }) {
-    const [content, setContent] = useState({});
-    const [loaded, setLoaded] = useState(false);
-    useEffect(() => {
-        const dataFetch = async () => {
-            const url = 'http://localhost:5000/api/resources/mcps/' + id;
-            const data = await axios
-                .get(url)
-                .then((res) => res.data)
-                .then((data) => {
-                    console.log(data);
-                    return data;
-                });
-            setLoaded(true);
-            setContent(data);
-        };
-        dataFetch();
-    }, []);
+export const dataFetch = async (url, setContent) => {
+    const data = await axios
+        .get(url)
+        .then((res) => res.data)
+        .then((data) => {
+            console.log(data);
+            return data;
+        });
+    setContent(data);
+};
+export function CustomPopup({ show, setShow, content }) {
     return Object.keys(content).length != 0 ? (
         <Popup open={show} modal position="right-center" onClose={() => setShow(false)}>
             {(close) => (
                 <div className={cx('modal-box')}>
-                    <div className={cx('modal-header')}>{'DEPOT'}</div>
+                    <div className={cx('modal-header')}>{content.depot_id ? 'MCP' : 'DEPOT'}</div>
                     <div className={cx('modal-content')}>
-                        <div className={cx('modal-content-item')}>
-                            <p>Capacity</p>
-                            <p>{content.capacity}</p>
-                        </div>
-                        <div className={cx('modal-content-item')}>
-                            <p>Filled</p>
-                            <p>{content.filled}</p>
-                        </div>
-                        <div className={cx('modal-content-item')}>
-                            <p>title:</p>
-                            <p>abc</p>
-                        </div>
-                        <div className={cx('modal-content-item')}>
-                            <p>title:</p>
-                            <p>abc</p>
-                        </div>
-                        <div className={cx('modal-content-item')}>
-                            <p>title:</p>
-                            <p>abc</p>
-                        </div>
+                        {Object.keys(content).map((key) => {
+                            return (
+                                <div key={key} className={cx('modal-content-item')}>
+                                    <p>{key}</p>
+                                    <p>{content[key]}</p>
+                                </div>
+                            );
+                        })}
                     </div>
                     <div className={cx('actions')}>
                         <button
@@ -68,7 +49,12 @@ function DepotPopup({ show, setShow, id }) {
 }
 function DepotMarker({ item }) {
     const [show, setShow] = useState(false);
-
+    const [content, setContent] = useState({});
+    useEffect(() => {
+        if (show) {
+            dataFetch('http://localhost:5000/api/resources/depots/' + item.id, setContent);
+        }
+    }, [show]);
     return (
         <div
             className={cx('marker')}
@@ -77,7 +63,7 @@ function DepotMarker({ item }) {
             }}
         >
             <img className={cx('icon', 'mcp')} src={depot.logo} alt="depot"></img>
-            {show ? <DepotPopup show={show} setShow={setShow} id={item.id} /> : null}
+            {show ? <CustomPopup show={show} setShow={setShow} content={content} /> : null}
         </div>
     );
 }

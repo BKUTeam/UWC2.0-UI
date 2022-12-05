@@ -12,9 +12,6 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY;
 
 const cx = classNames.bind(styles);
 
-// const start = [106.65797153503293, 10.772106611692124];
-// const endPoint = [106.658798, 10.782727];
-
 function Map({}) {
     const context = useContext(MapContext);
     const [mapData, setMapData] = useState({

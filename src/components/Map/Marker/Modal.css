@@ -1,8 +1,9 @@
 .popup-content {
     margin: auto;
     background: transparent;
-    width: 400px;
-    height: 300px;
+    display: block;
+    min-width: 400px;
+    min-height: 300px;
 }
 .popup-arrow {
     color: rgb(255, 255, 255);

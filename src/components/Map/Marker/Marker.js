@@ -1,27 +1,16 @@
 import classNames from 'classnames/bind';
 import { Marker } from 'react-map-gl';
-import Popup from 'reactjs-popup';
 
-import { depot, mcp } from '~/assets/icon';
 import styles from './Marker.module.scss';
 import './Modal.css';
-import geojson from '../data';
 import MCPMarker from './MCPMarker';
 import DepotMarker from './DepotMarker';
 import { useState, useEffect } from 'react';
-// const onClickHandle = (url) => {
-//     fetch(url)
-//         .then((res) => res.json())
-//         .then((data) => {
-//             setPopupContnet(data);
-//         });
-// };
 const cx = classNames.bind(styles);
-function MarkerComponent({ children, item }) {
+function MarkerComponent({ item }) {
     const [mcpFlag, setMCPFlag] = useState();
     const [data, setData] = useState();
     const [coordinates, setCoor] = useState([]);
-    // const [popupContent, setPopupContnet] = useState({});
     useEffect(() => {
         if ('depot_id' in item) {
             setMCPFlag(true);

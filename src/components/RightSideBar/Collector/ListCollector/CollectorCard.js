@@ -3,9 +3,8 @@ import CardStyle from './card.module.scss';
 import { useState } from 'react';
 import CollectorInfo from '../CollectorInfo/info';
 
-function RenderCard() {
-    const [showInfo, setShowInfo] = useState(false);
-    const [showList, setShowList] = useState(true);
+function RenderCard({ showInfo, setShowInfo, completed }) {
+    var ID = 1;
 
     return (
         <>
@@ -21,7 +20,7 @@ function RenderCard() {
                                     setShowInfo(!showInfo);
                                     setShowList(!showList);
                                 }}
-                                className="fa-solid fa-circle-chevron-right"
+                                class="fa-solid fa-circle-chevron-right"
                             ></i>
                         </Col>
                     </Row>

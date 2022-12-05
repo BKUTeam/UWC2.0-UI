@@ -1,37 +1,62 @@
-import { Row, Col} from "react-bootstrap";
-import RouteCard from './RouteCard'
-import InfoStyles from './info.module.scss'
-import { Button } from "react-bootstrap";
-
-export default function RenderInfo({setShowInfo, showInfo}) {
-    
+import classNames from 'classnames/bind';
+import RouteCard from './RouteCard';
+import InfoStyles from './info.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+const cx = classNames.bind(InfoStyles);
+const defaultCollectorInfo = {
+    name: 'Cristiano Ronaldo',
+    body: {
+        id: 1,
+        age: 37,
+        gender: 'male',
+        citizen_identification: '248149827424',
+        phone_number: '0983477274',
+        address: 'man utd',
+        birthplace: 'Portugal',
+        vehicle_id: 1,
+        depot_id: 1,
+    },
+    routes: [],
+};
+export default function CollectorInfo({ content = defaultCollectorInfo, onClick }) {
+    const onBackHandle = () => {
+        onClick({ show: false, id: 0 });
+    };
+    content = defaultCollectorInfo;
     return (
-        <div className={InfoStyles['info-bar']}>
-            <Button className="ms-3" onClick={() => {setShowInfo(!showInfo)}}>
-                <i class="fa-solid fa-angle-left me-2"></i>
-                Quay lại
-            </Button>
-            <div className={InfoStyles.title}>Lê Thanh Tân</div>
-            <Row className={InfoStyles.content}>
-                <Col>
-                    <div className="fw-bold">Mã:</div>
-                    <div className="fw-bold">Công việc:</div>
-                    <div className="fw-bold">Kho tập trung:</div>    
-                    <div className="fw-bold">Phương tiện:</div>
-                    <div className="fw-bold">Số điểm tập kết:</div>
-                    <div className="fw-bold">Hoàn thành:</div>
-                </Col>
-                <Col className={InfoStyles.right}>
-                    <div>Công nhân #1234</div>
-                    <div>Tài xế</div>
-                    <div>HCMUT</div>
-                    <div>Xe tải #3</div>
-                    <div>4 điểm</div>
-                    <div>0 điểm</div>
-                </Col>
-            </Row>
-            <div className={InfoStyles.title}>Đường đi thu gom đã giao</div>
-            <RouteCard/>
+        <div className={cx('info-wrapper')}>
+            <div className={cx('info-header')}>
+                <div className={cx('back-btn')} onClick={onBackHandle}>
+                    <FontAwesomeIcon icon={faAngleLeft} />
+                    Quay lại
+                </div>
+                <div className={cx('title')}>{content.name}</div>
+            </div>
+            <div className={cx('info-content')}>
+                {content.body
+                    ? Object.keys(content.body).map((key, index) => {
+                          return (
+                              <div key={index} className={cx('content-item')}>
+                                  <div key={index + 'left'} className={cx('bold')}>
+                                      {key}
+                                  </div>
+                                  <div key={index + 'right'} className={cx('medium')}>
+                                      {content.body[key]}
+                                  </div>
+                              </div>
+                          );
+                      })
+                    : null}
+            </div>
+            {content.routes.length > 0 ? (
+                <div className={cx('route')}>
+                    <div className={cx('title')}>Đường đi thu gom đã giao</div>
+                    {content.routes.map((route, index) => (
+                        <RouteCard key={index} content={route} />
+                    ))}
+                </div>
+            ) : null}
         </div>
-    )
+    );
 }

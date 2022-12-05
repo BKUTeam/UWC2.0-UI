@@ -1,10 +1,6 @@
 import RenderSidebarCollectorList from './ListCollector/SidebarList';
-import RenderSidebarJanitorList from '../Janitor/ListJanitor/SidebarList';
+// import RenderSidebarJanitorList from '../Janitor/ListJanitor/SidebarList';
 
-export default function RightSideBar() {
-    return (
-        <div>
-            <RenderSidebarCollectorList />
-        </div>
-    );
+export default function RightSideBar({ content }) {
+    return <RenderSidebarCollectorList collectors={content} />;
 }

@@ -1,61 +1,43 @@
-import { Col, Row, Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
+import classNames from 'classnames/bind';
 import CardStyle from './card.module.scss';
-import { useState } from 'react';
-import CollectorInfo from '../CollectorInfo/info';
 
-function RenderCard({ showInfo, setShowInfo, completed }) {
-    var ID = 1;
-
+const cx = classNames.bind(CardStyle);
+const defaultCollectorInfo = {
+    name: 'Cristiano Ronaldo',
+    id: 1,
+    vehicle_id: 1,
+    depot_id: 1,
+};
+// Collector detail not get name.
+function CollectorCard({ content = defaultCollectorInfo, onClick }) {
+    const handleOnClick = () => {
+        onClick({
+            show: true,
+            id: content.id,
+        });
+    };
     return (
-        <>
-            {showList && (
-                <div className={CardStyle.card}>
-                    <Row>
-                        <Col>
-                            <div>Lê Thanh Tânnn</div>
-                        </Col>
-                        <Col className={CardStyle.right}>
-                            <i
-                                onClick={() => {
-                                    setShowInfo(!showInfo);
-                                    setShowList(!showList);
-                                }}
-                                class="fa-solid fa-circle-chevron-right"
-                            ></i>
-                        </Col>
-                    </Row>
-                    <hr />
-                    <Row>
-                        <Col>
-                            <div className="fw-bold">Mã phương tiện:</div>
-                            <div className="fw-bold">Hoàn thành:</div>
-                        </Col>
-                        <Col className={CardStyle.right}>
-                            <div>Xe tải #3</div>
-                            <div>2/3 Lộ trình</div>
-                        </Col>
-                    </Row>
+        <div className={cx('card-wrapper')}>
+            <div className={cx('card-header')} onClick={handleOnClick}>
+                <div className={cx('bold')}>{content.name}</div>
+                <div className={cx('card-back-btn')}>
+                    <FontAwesomeIcon icon={faCircleChevronRight} />
                 </div>
-            )}
-            <div>
-                {showInfo && (
-                    <>
-                        <Button
-                            className="ms-3 mb-3"
-                            onClick={() => {
-                                setShowInfo(!showInfo);
-                                setShowList(!showList);
-                            }}
-                        >
-                            <i className="fa-solid fa-angle-left me-2"></i>
-                            Quay lại
-                        </Button>
-                        <CollectorInfo />
-                    </>
-                )}
             </div>
-        </>
+            <div className={cx('card-content')}>
+                {Object.keys(content).map((key) => {
+                    return key === 'name' ? null : (
+                        <div keys={key} className={cx('card-content-item')}>
+                            <div className={cx('bold')}>{key}:</div>
+                            <div className={cx('medium')}>{content[key]}</div>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
     );
 }
 
-export default RenderCard;
+export default CollectorCard;

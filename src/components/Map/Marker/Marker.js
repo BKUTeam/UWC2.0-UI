@@ -1,12 +1,12 @@
-import classNames from 'classnames/bind';
+// import classNames from 'classnames/bind';
 import { Marker } from 'react-map-gl';
 
-import styles from './Marker.module.scss';
+// import styles from './Marker.module.scss';
 import './Modal.css';
 import MCPMarker from './MCPMarker';
 import DepotMarker from './DepotMarker';
 import { useState, useEffect } from 'react';
-const cx = classNames.bind(styles);
+// const cx = classNames.bind(styles);
 function MarkerComponent({ item }) {
     const [mcpFlag, setMCPFlag] = useState();
     const [data, setData] = useState();

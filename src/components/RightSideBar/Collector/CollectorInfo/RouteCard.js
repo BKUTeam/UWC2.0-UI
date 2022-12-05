@@ -1,13 +1,19 @@
+// import classNames from 'classnames/bind';
 import { Col, Row } from 'react-bootstrap';
 import CardStyle from './card.module.scss';
-
-function RenderCard() {
+// const cx = classNames.bind(CardStyle);
+function RouteCard({
+    content = {
+        mcps: [{}],
+        distance: 0,
+    },
+}) {
     return (
         <div className={CardStyle.card}>
             <Row>
                 <Col>
                     <div className="fw-bold" style={{ color: '#253F73' }}>
-                        Thu gom 2 điểm
+                        Số lượng MCP: {content.mcps.length}
                     </div>
                 </Col>
                 <Col className={CardStyle.right}>
@@ -16,38 +22,26 @@ function RenderCard() {
             </Row>
             <hr />
             <Row>
-                <Col>
-                    <div>523 Tô Hiến Thành</div>
-                </Col>
-                <Col className={CardStyle.right}>
-                    <div>Quận 10</div>
-                </Col>
+                {content.mcps.map((item) => {
+                    return (
+                        <Row>
+                            <Col>
+                                <div>{item}</div>
+                            </Col>
+                            <Col className={CardStyle.right}>
+                                <div>{content[item]}</div>
+                            </Col>
+                        </Row>
+                    );
+                })}
             </Row>
             <Row>
                 <Col>
-                    <div>523 Tô Hiến Thành</div>
-                </Col>
-                <Col className={CardStyle.right}>
-                    <div>Quận 10</div>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <span className="fst-italic opacity-50">7km</span>
+                    <span className="fst-italic opacity-50">{content.distance}</span>
                 </Col>
             </Row>
         </div>
     );
 }
 
-function RenderCardList() {
-    return (
-        <>
-            <RenderCard />
-            <RenderCard />
-            <RenderCard />
-        </>
-    );
-}
-
-export default RenderCardList;
+export default RouteCard;

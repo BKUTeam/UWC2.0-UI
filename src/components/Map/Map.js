@@ -12,7 +12,7 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY;
 
 const cx = classNames.bind(styles);
 
-function Map({}) {
+function Map() {
     const context = useContext(MapContext);
     const [mapData, setMapData] = useState({
         markerData: [],

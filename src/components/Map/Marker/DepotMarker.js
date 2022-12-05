@@ -11,13 +11,12 @@ export const dataFetch = async (url, setContent) => {
         .get(url)
         .then((res) => res.data)
         .then((data) => {
-            console.log(data);
             return data;
         });
     setContent(data);
 };
 export function CustomPopup({ show, setShow, content }) {
-    return Object.keys(content).length != 0 ? (
+    return Object.keys(content).length !== 0 ? (
         <Popup open={show} modal position="right-center" onClose={() => setShow(false)}>
             {(close) => (
                 <div className={cx('modal-box')}>

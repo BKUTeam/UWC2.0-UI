@@ -5,25 +5,10 @@ import classNames from 'classnames/bind';
 import styles from './Marker.module.scss';
 import { mcp } from '~/assets/icon';
 import { useEffect } from 'react';
-
+import { dataFetch } from './DepotMarker';
+import { CustomPopup } from './DepotMarker';
 const cx = classNames.bind(styles);
-function MCPPopUp({ show, setShow, id }) {
-    const [content, setContent] = useState({});
-    const [loaded, setLoaded] = useState(false);
-    useEffect(() => {
-        const url = `http://localhost:5000/api/resources/mcps/` + id;
-        const dataFetch = async () => {
-            const data = await axios
-                .get(url)
-                .then((res) => res.data)
-                .then((data) => {
-                    return data;
-                });
-            setContent(data);
-            setLoaded(true);
-        };
-        dataFetch();
-    }, []);
+function MCPPopUp({ show, setShow, content }) {
     return Object.keys(content).length != 0 ? (
         <Popup open={show} modal position="right-center" onClose={() => setShow(false)}>
             {(close) => (
@@ -64,6 +49,12 @@ function MCPPopUp({ show, setShow, id }) {
 }
 function MCPMarker({ item }) {
     const [show, setShow] = useState(false);
+    const [content, setContent] = useState({});
+    useEffect(() => {
+        if (show) {
+            dataFetch('http://localhost:5000/api/resources/mcps/' + item.id, setContent);
+        }
+    }, [show]);
     return (
         <div
             className={cx('marker')}
@@ -73,7 +64,7 @@ function MCPMarker({ item }) {
         >
             <img className={cx('icon', 'mcp')} src={mcp.logo}></img>
             <div className={cx('state', item.state.toLowerCase())}></div>
-            {show ? <MCPPopUp show={show} setShow={setShow} id={item.id} /> : null}
+            {show ? <CustomPopup show={show} setShow={setShow} content={content} /> : null}
         </div>
     );
 }

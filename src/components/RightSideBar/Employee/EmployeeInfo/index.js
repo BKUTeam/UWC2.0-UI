@@ -7,23 +7,23 @@ const cx = classNames.bind(InfoStyles);
 const defaultCollectorInfo = {
     name: 'Cristiano Ronaldo',
     body: {
-        id: 1,
-        age: 37,
-        gender: 'male',
-        citizen_identification: '248149827424',
-        phone_number: '0983477274',
-        address: 'man utd',
-        birthplace: 'Portugal',
-        vehicle_id: 1,
-        depot_id: 1,
+        ID: 1,
+        Age: 37,
+        Gender: 'male',
+        'Citizen ID': '248149827424',
+        Phone: '0983477274',
+        Address: 'man utd',
+        Birthplace: 'Portugal',
+        'Vehicle ID': 1,
+        'Depot ID': 1,
     },
     routes: [],
 };
-export default function CollectorInfo({ content = defaultCollectorInfo, onClick }) {
+function EmployeeInfoComponent({ content = defaultCollectorInfo, onClick }) {
     const onBackHandle = () => {
-        onClick({ show: false, id: 0 });
+        onClick({ show: false, id: null, firsttime: true });
     };
-    content = defaultCollectorInfo;
+    // content = defaultCollectorInfo;
     return (
         <div className={cx('info-wrapper')}>
             <div className={cx('info-header')}>
@@ -49,7 +49,7 @@ export default function CollectorInfo({ content = defaultCollectorInfo, onClick 
                       })
                     : null}
             </div>
-            {content.routes.length > 0 ? (
+            {content.routes ? (
                 <div className={cx('route')}>
                     <div className={cx('title')}>Đường đi thu gom đã giao</div>
                     {content.routes.map((route, index) => (
@@ -60,3 +60,5 @@ export default function CollectorInfo({ content = defaultCollectorInfo, onClick 
         </div>
     );
 }
+
+export default EmployeeInfoComponent;

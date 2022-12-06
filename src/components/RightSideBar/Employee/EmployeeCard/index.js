@@ -10,12 +10,12 @@ const defaultCollectorInfo = {
     vehicle_id: 1,
     depot_id: 1,
 };
-// Collector detail not get name.
-function CollectorCard({ content = defaultCollectorInfo, onClick }) {
+function EmployeeCardComponent({ content = defaultCollectorInfo, onClick }) {
     const handleOnClick = () => {
         onClick({
             show: true,
-            id: content.id,
+            id: content['Collector ID'],
+            firsttime: true,
         });
     };
     return (
@@ -29,7 +29,7 @@ function CollectorCard({ content = defaultCollectorInfo, onClick }) {
             <div className={cx('card-content')}>
                 {Object.keys(content).map((key) => {
                     return key === 'name' ? null : (
-                        <div keys={key} className={cx('card-content-item')}>
+                        <div key={key} className={cx('card-content-item')}>
                             <div className={cx('bold')}>{key}:</div>
                             <div className={cx('medium')}>{content[key]}</div>
                         </div>
@@ -40,4 +40,4 @@ function CollectorCard({ content = defaultCollectorInfo, onClick }) {
     );
 }
 
-export default CollectorCard;
+export default EmployeeCardComponent;

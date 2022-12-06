@@ -3,39 +3,47 @@ import { Map } from '~/components/Map';
 import styles from '~/components/GlobalStyles/GlobalStyles.module.scss';
 import { createContext, useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import { dataFetch } from './utils/DataFetch';
 
 import Header from '~/components/Header/Header';
-import RightSideBar from '~/components/RightSideBar/Collector';
+import { RightSideBarComponent } from '~/components/RightSideBar';
 
 export const MapContext = createContext();
 
-const getMcp = (setmcpInfo) => {
-    fetch('http://localhost:5000/api/resources/mcps/')
-        .then((res) => res.json())
-        .then((data) => {
-            setmcpInfo(data);
-        });
-};
-const getDepot = (setdepotInfo) => {
-    fetch('http://localhost:5000/api/resources/depots/')
-        .then((res) => res.json())
-        .then((data) => {
-            setdepotInfo(data);
-        });
-};
 const cx = classNames.bind(styles);
+export const MENU_ITEMS = [
+    {
+        title: 'Janitor',
+        url: 'http://localhost:5000/api/resources/janitors',
+        id: 0,
+    },
+    {
+        title: 'Collector',
+        url: 'http://localhost:5000/api/resources/collectors',
+        id: 1,
+    },
+];
 function App() {
     const [routeData, setRouteData] = useState([]);
     const [mcpInfo, setmcpInfo] = useState([]);
     const [depotInfo, setdepotInfo] = useState([]);
+    const [employees, setEmployees] = useState([]);
+    const [currentView, setCurrentView] = useState(MENU_ITEMS[1]);
     useEffect(() => {
-        getMcp(setmcpInfo);
-        getDepot(setdepotInfo);
+        dataFetch('http://localhost:5000/api/resources/mcps/', setmcpInfo);
+        dataFetch('http://localhost:5000/api/resources/depots/', setdepotInfo);
     }, []);
-
+    useEffect(() => {
+        dataFetch(currentView.url, setEmployees);
+    }, [currentView]);
+    const changeEmployeeHandle = (view) => {
+        setCurrentView(view);
+    };
     return (
         <div className={cx('app')}>
-            <div className={cx('header')}>{<Header />}</div>
+            <div className={cx('header')}>
+                {<Header currentView={currentView} onChangeEmployee={changeEmployeeHandle} />}
+            </div>
             <div className={cx('sidenav', 'left-sidenav')}>Left sideNav</div>
             <div className={cx('content')}>
                 <div className={cx('main-content')}>
@@ -46,7 +54,7 @@ function App() {
                 <div className={cx('footer')}>Footer</div>
             </div>
             <div className={cx('sidenav', 'right-sidenav')}>
-                <RightSideBar />
+                <RightSideBarComponent content={employees} />
             </div>
         </div>
     );

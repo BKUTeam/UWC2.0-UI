@@ -8,10 +8,10 @@ import { dataFetch } from './utils/DataFetch';
 import Header from '~/components/Header/Header';
 import { RightSideBarComponent } from '~/components/RightSideBar';
 
-
 import { LeftSlidenav } from './components/LeftSlidenav';
 import { Footer } from './components/Footer/index';
 
+import { pushSuccessNoti } from '~/utils/Notify';
 export const MapContext = createContext();
 
 const cx = classNames.bind(styles);
@@ -31,31 +31,66 @@ function App() {
     const [routeData, setRouteData] = useState([]);
     const [mcpInfo, setmcpInfo] = useState([]);
     const [depotInfo, setdepotInfo] = useState([]);
+    const [factoriesInfo, setFactoriesInfo] = useState([]);
     const [employees, setEmployees] = useState([]);
     const [currentView, setCurrentView] = useState(MENU_ITEMS[1]);
-
-
+    const [firstMount, setFirstMount] = useState(true);
+    const [history, setHistory] = useState([
+        {
+            mcps: [],
+            depots: [],
+            factories: [],
+            routes: [],
+        },
+    ]);
     // State of list routes
-    const [routes, setRoutes] = useState([])
+    const [routes, setRoutes] = useState([]);
 
     useEffect(() => {
         dataFetch('http://localhost:5000/api/resources/mcps/', setmcpInfo);
         dataFetch('http://localhost:5000/api/resources/depots/', setdepotInfo);
+        dataFetch('http://localhost:5000/api/resources/factories/', setFactoriesInfo);
     }, []);
     useEffect(() => {
+        // if (setFirstMount) {
+        //     setFirstMount(false);
+        setHistory([
+            ...history,
+            {
+                mcps: mcpInfo,
+                depots: depotInfo,
+                factories: factoriesInfo,
+                routes: routeData,
+            },
+        ]);
+        // }
+    }, [mcpInfo, depotInfo, factoriesInfo, routeData]);
+    console.log(history);
+    useEffect(() => {
+        pushSuccessNoti();
         dataFetch(currentView.url, setEmployees);
     }, [currentView]);
     const changeEmployeeHandle = (view) => {
         setCurrentView(view);
     };
     return (
-        <MapContext.Provider value={{
-            routeContext: routeData,
-            setRouteData: setRouteData,
-            markerContext: [...mcpInfo, ...depotInfo],
-            routes: routes,
-            setRoutes: setRoutes
-        }}>
+        <MapContext.Provider
+            value={{
+                routeData: routeData,
+                setRouteData: setRouteData,
+                routes: routes,
+                setRoutes: setRoutes,
+                mcps: mcpInfo,
+                setMcps: setmcpInfo,
+
+                depots: depotInfo,
+                setDepots: setdepotInfo,
+                factories: factoriesInfo,
+                setFactories: setFactoriesInfo,
+                history: history,
+                setHistory: setHistory,
+            }}
+        >
             <div className={cx('app')}>
                 <div className={cx('header')}>
                     {<Header currentView={currentView} onChangeEmployee={changeEmployeeHandle} />}
@@ -79,7 +114,7 @@ function App() {
                 </div>
             </div>
         </MapContext.Provider>
-    )
+    );
 }
 
 export default App;

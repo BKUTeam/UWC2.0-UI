@@ -4,7 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 function ListEmployee({ content = [] }) {
-    console.log('re-render');
+    // console.log('re-render');
     const [collector, setCollector] = useState({});
     const [showInfo, setShow] = useState({ show: false, id: 0 });
     const onClickCollectorCardHandle = (show) => {
@@ -24,7 +24,7 @@ function ListEmployee({ content = [] }) {
                         }),
                     )
                     .then((data) => {
-                        console.log(data);
+                        // console.log(data);
                         return data;
                     });
                 setCollectorData({

@@ -49,6 +49,7 @@ function App() {
                 {<Header currentView={currentView} onChangeEmployee={changeEmployeeHandle} />}
             </div>
             <div className={cx('sidenav', 'left-sidenav')}>
+            
                 <LeftSlidenav />
             </div>
             <div className={cx('content')}>
@@ -57,16 +58,14 @@ function App() {
                         <Map />
                     </MapContext.Provider>
                 </div>
-                <div className={cx('footer')}>
-                    <Footer />
-                </div>
+                <div className={cx('footer')}>Footer</div>
             </div>
             
             <div className={cx('sidenav', 'right-sidenav')}>
                 <RightSideBarComponent content={employees} />
             </div>
         </div>
-    )
+
 }
 
 export default App;

@@ -43,30 +43,33 @@ function App() {
     const changeEmployeeHandle = (view) => {
         setCurrentView(view);
     };
-    return (            
+    return (
+
+        <>
+            
+            <Footer />
+        </>
         <div className={cx('app')}>
             <div className={cx('header')}>
                 {<Header currentView={currentView} onChangeEmployee={changeEmployeeHandle} />}
             </div>
-            <div className={cx('sidenav', 'left-sidenav')}>
-                <LeftSlidenav />
-            </div>
+            <div className={cx('sidenav', 'left-sidenav')}>Left sideNav</div>
             <div className={cx('content')}>
                 <div className={cx('main-content')}>
                     <MapContext.Provider value={{ routeContext: routeData, markerContext: [...mcpInfo, ...depotInfo] }}>
                         <Map />
                     </MapContext.Provider>
                 </div>
-                <div className={cx('footer')}>
-                    <Footer />
-                </div>
+                <div className={cx('footer')}>Footer</div>
             </div>
-            
+            <div className="left-sidenav">
+                <LeftSlidenav />
+            </div>
             <div className={cx('sidenav', 'right-sidenav')}>
                 <RightSideBarComponent content={employees} />
             </div>
         </div>
-    )
+
 }
 
 export default App;

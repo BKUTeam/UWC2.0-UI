@@ -49,6 +49,7 @@ function App() {
                 {<Header currentView={currentView} onChangeEmployee={changeEmployeeHandle} />}
             </div>
             <div className={cx('sidenav', 'left-sidenav')}>
+            
                 <LeftSlidenav />
             </div>
             <div className={cx('content')}>
@@ -59,6 +60,7 @@ function App() {
                 </div>
                 <div className={cx('footer')}>
                     <Footer />
+
                 </div>
             </div>
             
@@ -66,7 +68,7 @@ function App() {
                 <RightSideBarComponent content={employees} />
             </div>
         </div>
-    )
+
 }
 
 export default App;

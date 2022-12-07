@@ -16,7 +16,7 @@
     text-align: center;
     text-transform: uppercase;
     font-size: 15px;
-    font-family: 'Montserrat';
+    /* font-family: 'Montserrat'; */
     flex-grow: 2;
 }
 .header-footer {
@@ -119,7 +119,7 @@
     border-radius: 10px;
     width: 80vh;
     min-height: 100px;
-    box-shadow-right: ;
+    /* box-shadow-right: ; */
 }
 .container-route-detail > .header-route-map {
     border-right: 2px solid #ccc;

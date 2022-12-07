@@ -19,6 +19,11 @@
     color: #fff;
     padding: 15px;
     background: #2e4d89;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 230px;
+    z-index: 10;
 }
 .header-left-slidenav-header {
     background: linear-gradient(
@@ -76,7 +81,7 @@
 }
 .container-left-sidenav-message span,
 .link-left-slidenav > span {
-    font-family: 'Montserrat';
+    /* font-family: 'Montserrat'; */
     display: inline-block;
     margin-left: 10px;
     font-size: 17px;

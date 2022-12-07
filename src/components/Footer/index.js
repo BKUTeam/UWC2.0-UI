@@ -1,9 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { RouteMap } from './routeMap';
 import './style.css';
 import { faAngleLeft, faAngleRight, faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 import { RouteDetail } from './routeDetail/RouteDetail';
+import { MapContext } from '~/App';
+import routeData from '~/components/Map/TemplateRoute'
+
+
 const routes = [
     [
         {
@@ -54,11 +58,18 @@ const routes = [
         },
     ],
 ];
+
+
+
 export const Footer = () => {
     const [isAssigningRoute, setIsAssigningRoute] = useState(false);
     const [indexStart, setIndexStart] = useState(0);
     const [routesSliced, setRoutesSlided] = useState(routes.slice(indexStart, indexStart + 3));
     const [choosedRoute, setChoosedRoute] = useState(null);
+
+    const mapContext = useContext(MapContext)
+
+
     const handleNextIndex = () => {
         if (indexStart + 3 < routes.length) {
             setIndexStart(indexStart + 1);
@@ -71,6 +82,20 @@ export const Footer = () => {
             setRoutesSlided(routes.slice(indexStart - 1, indexStart + 2));
         }
     };
+
+    useEffect(() => {
+        console.log("Use Effect in FOOTER, catch routes")
+        console.log(mapContext.routes)
+    }, [mapContext.routes])
+
+
+    const renderRoute = (route) => {
+        const cur_route = { ...routeData }
+        const list_coordinate = []
+        cur_route.source.data.geometry.coordinates = route.render_route.routes[0].geometry.coordinates
+        mapContext.setRouteData([cur_route])
+    }
+
     return (
         <>
             <div className="footer">
@@ -94,7 +119,7 @@ export const Footer = () => {
                     <div className="container-footer-of-footer">
                         {!choosedRoute ? (
                             <>
-                                <button
+                                {/* <button
                                     className={indexStart === 0 ? 'btn-footer btn-disabled' : 'btn-footer'}
                                     onClick={handlePreviosIndex}
                                 >
@@ -117,7 +142,29 @@ export const Footer = () => {
                                     onClick={handleNextIndex}
                                 >
                                     <FontAwesomeIcon icon={faAngleRight} />
-                                </button>
+                                </button> */}
+
+                                {
+                                    mapContext.routes.map(route => {
+                                        return (
+                                            <div key={route.id} onClick={() => {
+                                                renderRoute(route)
+                                                console.log("Route button onclick")
+                                            }}
+                                                style={{
+                                                    border: "1px solid #000"
+                                                }}
+                                            >
+                                                {
+                                                    route.id
+                                                }
+                                            </div>
+                                        )
+                                    })
+                                }
+
+
+
                             </>
                         ) : (
                             <div className="footer-route-detail">

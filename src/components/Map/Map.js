@@ -20,9 +20,12 @@ function Map() {
     });
     const [state, setState] = useState(defaultViewport);
     useEffect(() => {
+        console.log("Map useEffect - catch context")
+        console.log(context.routeContext)
         if (context.markerContext.length > 0) {
             setMapData({ ...mapData, markerData: context.markerContext });
         }
+
         if (context.routeContext.length > 0) {
             setMapData({ ...mapData, routeData: context.routeContext });
         }
@@ -41,6 +44,7 @@ function Map() {
                         return <Marker key={index} item={item}></Marker>;
                     })}
                     {mapData.routeData.map((route, index) => {
+                        console.log("Rerender route")
                         return (
                             <Source key={index} {...route.source}>
                                 <Layer {...route.layer}></Layer>

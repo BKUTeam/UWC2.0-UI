@@ -14,14 +14,10 @@ const defaultCollectorInfo = {
     depot_id: 1,
 };
 
-function fetchRouteForCollector(collectorId) {
-
-}
+function fetchRouteForCollector(collectorId) {}
 
 function EmployeeCardComponent({ content = defaultCollectorInfo, onClick }) {
-
-
-    const mapContext = useContext(MapContext)
+    const mapContext = useContext(MapContext);
 
     const handleOnClick = () => {
         onClick({
@@ -32,23 +28,19 @@ function EmployeeCardComponent({ content = defaultCollectorInfo, onClick }) {
     };
 
     const fetchRouteForCollector = () => {
-
         const options = {
             url: `http://localhost:5000/api/task-assignment/routes?collector-id=${content['Collector ID']}`,
             method: 'GET',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json;charset=UTF-8'
-            }
+                Accept: 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8',
+            },
         };
 
-        axios(options)
-            .then(response => {
-                console.log(response.data);
-                mapContext.setRoutes(response.data.routes)
-
-            });
-    }
+        axios(options).then((response) => {
+            mapContext.setRoutes(response.data.routes);
+        });
+    };
 
     return (
         <div className={cx('card-wrapper')}>
@@ -68,9 +60,7 @@ function EmployeeCardComponent({ content = defaultCollectorInfo, onClick }) {
                     );
                 })}
             </div>
-            <button onClick={fetchRouteForCollector}>
-                Assign
-            </button>
+            <button onClick={fetchRouteForCollector}>Assign</button>
         </div>
     );
 }

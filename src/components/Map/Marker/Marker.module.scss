@@ -11,10 +11,14 @@
 .icon {
     min-width: 40%;
     min-height: 40%;
+    svg {
+        width: 30px;
+        height: 30px;
+    }
 }
 .depot {
     width: 80%;
-    height: 80&;
+    height: 80%;
 }
 
 .modal-box {
@@ -81,4 +85,23 @@
     &:hover {
         background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)), #98cda1;
     }
+}
+
+.state {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+}
+
+.normal {
+    color: darkgreen;
+}
+.full {
+    color: darkred;
+}
+.half {
+    color: darkgoldenrod;
 }

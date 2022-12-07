@@ -7,28 +7,17 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { Marker } from './Marker';
 import { defaultViewport, mapStyles } from './data';
 import { MapContext } from '~/App';
+import { useRef } from 'react';
 
 const cx = classNames.bind(styles);
 
 function Map() {
     const context = useContext(MapContext);
-    const [mapData, setMapData] = useState({
-        markerData: [],
-        routeData: [],
-    });
+    // console.log(context);
+    const [history] = context.history.slice(-1);
+    // console.log(history);
+    // console.log(history);
     const [state, setState] = useState(defaultViewport);
-    useEffect(() => {
-        console.log("Map useEffect - catch context")
-        console.log(context.routeContext)
-        if (context.markerContext.length > 0) {
-            setMapData({ ...mapData, markerData: context.markerContext });
-        }
-
-        if (context.routeContext.length > 0) {
-            setMapData({ ...mapData, routeData: context.routeContext });
-        }
-    }, [context]);
-    // console.log(mapData);
     return (
         <div className={cx('map-wrapper')}>
             <div className={cx('map-container')}>
@@ -38,16 +27,30 @@ function Map() {
                     onMove={(viewport) => setState(viewport)}
                     mapboxAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
                 >
-                    {mapData.markerData.map((item, index) => {
-                        return <Marker key={index} item={item}></Marker>;
+                    {history.mcps.map((mcp, index) => {
+                        return <Marker key={index} item={mcp} type="mcp"></Marker>;
                     })}
-                    {mapData.routeData.map((route, index) => {
-                        console.log("Rerender route")
+                    {history.depots.map((depot, index) => {
+                        return <Marker key={index} item={depot} type="depot"></Marker>;
+                    })}
+                    {history.routes.map((route, index) => {
+                        {
+                            /* console.log('Rerender route'); */
+                        }
+                        {
+                            /* console.log(route.source); */
+                        }
                         return (
-                            <Source key={index} {...route.source}>
-                                <Layer {...route.layer}></Layer>
+                            <Source
+                                key={index + route.route.source.data.geometry.coordinates[0][1] + route.id}
+                                {...route.route.source}
+                            >
+                                <Layer {...route.route.layer}></Layer>
                             </Source>
                         );
+                    })}
+                    {history.factories.map((factory, index) => {
+                        return <Marker key={index} item={factory} type="factory"></Marker>;
                     })}
                 </ReactMapGL>
             </div>

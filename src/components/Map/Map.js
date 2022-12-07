@@ -1,6 +1,5 @@
 import classNames from 'classnames/bind';
 import { useContext, useState, useEffect } from 'react';
-import mapboxgl from 'mapbox-gl';
 import ReactMapGL, { Layer, Source } from 'react-map-gl';
 
 import styles from './Map.module.scss';
@@ -8,7 +7,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { Marker } from './Marker';
 import { defaultViewport, mapStyles } from './data';
 import { MapContext } from '~/App';
-mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY;
 
 const cx = classNames.bind(styles);
 

@@ -33,11 +33,6 @@ function App() {
     const [depotInfo, setdepotInfo] = useState([]);
     const [employees, setEmployees] = useState([]);
     const [currentView, setCurrentView] = useState(MENU_ITEMS[1]);
-
-
-    // State of list routes
-    const [routes, setRoutes] = useState([])
-
     useEffect(() => {
         dataFetch('http://localhost:5000/api/resources/mcps/', setmcpInfo);
         dataFetch('http://localhost:5000/api/resources/depots/', setdepotInfo);
@@ -48,38 +43,31 @@ function App() {
     const changeEmployeeHandle = (view) => {
         setCurrentView(view);
     };
-    return (
-        <MapContext.Provider value={{
-            routeContext: routeData,
-            setRouteData: setRouteData,
-            markerContext: [...mcpInfo, ...depotInfo],
-            routes: routes,
-            setRoutes: setRoutes
-        }}>
-            <div className={cx('app')}>
-                <div className={cx('header')}>
-                    {<Header currentView={currentView} onChangeEmployee={changeEmployeeHandle} />}
-                </div>
-                {/* <div className={cx('sidenav', 'left-sidenav')}>
+    return (            
+        <div className={cx('app')}>
+            <div className={cx('header')}>
+                {<Header currentView={currentView} onChangeEmployee={changeEmployeeHandle} />}
+            </div>
+            <div className={cx('sidenav', 'left-sidenav')}>
+            
                 <LeftSlidenav />
-            </div> */}
-                <LeftSlidenav />
-                <div className={cx('content')}>
-                    <div className={cx('main-content')}>
+            </div>
+            <div className={cx('content')}>
+                <div className={cx('main-content')}>
+                    <MapContext.Provider value={{ routeContext: routeData, markerContext: [...mcpInfo, ...depotInfo] }}>
                         <Map />
-                    </div>
-                    {/* <div className={cx('footer')}>
-                    
-                </div> */}
+                    </MapContext.Provider>
+                </div>
+                <div className={cx('footer')}>
                     <Footer />
                 </div>
-
-                <div className={cx('sidenav', 'right-sidenav')}>
-                    <RightSideBarComponent content={employees} />
-                </div>
             </div>
-        </MapContext.Provider>
-    )
+            
+            <div className={cx('sidenav', 'right-sidenav')}>
+                <RightSideBarComponent content={employees} />
+            </div>
+        </div>
+
 }
 
 export default App;

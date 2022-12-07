@@ -2,6 +2,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 import CardStyle from './card.module.scss';
+import axios, { Axios } from 'axios';
+import { useContext } from 'react';
+import { MapContext } from '~/App';
 
 const cx = classNames.bind(CardStyle);
 const defaultCollectorInfo = {
@@ -10,7 +13,16 @@ const defaultCollectorInfo = {
     vehicle_id: 1,
     depot_id: 1,
 };
+
+function fetchRouteForCollector(collectorId) {
+
+}
+
 function EmployeeCardComponent({ content = defaultCollectorInfo, onClick }) {
+
+
+    const mapContext = useContext(MapContext)
+
     const handleOnClick = () => {
         onClick({
             show: true,
@@ -18,6 +30,26 @@ function EmployeeCardComponent({ content = defaultCollectorInfo, onClick }) {
             firsttime: true,
         });
     };
+
+    const fetchRouteForCollector = () => {
+
+        const options = {
+            url: `http://localhost:5000/api/task-assignment/routes?collector-id=${content['Collector ID']}`,
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8'
+            }
+        };
+
+        axios(options)
+            .then(response => {
+                console.log(response.data);
+                mapContext.setRoutes(response.data.routes)
+
+            });
+    }
+
     return (
         <div className={cx('card-wrapper')}>
             <div className={cx('card-header')} onClick={handleOnClick}>
@@ -36,6 +68,9 @@ function EmployeeCardComponent({ content = defaultCollectorInfo, onClick }) {
                     );
                 })}
             </div>
+            <button onClick={fetchRouteForCollector}>
+                Assign
+            </button>
         </div>
     );
 }

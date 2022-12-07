@@ -66,7 +66,7 @@ function App() {
                 <RightSideBarComponent content={employees} />
             </div>
         </div>
-    )
+
 }
 
 export default App;

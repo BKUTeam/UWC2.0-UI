@@ -19,12 +19,12 @@ export const MENU_ITEMS = [
     {
         title: 'Janitor',
         url: 'http://localhost:5000/api/resources/janitors',
-        id: 0,
+        id: '0',
     },
     {
         title: 'Collector',
         url: 'http://localhost:5000/api/resources/collectors',
-        id: 1,
+        id: '1',
     },
 ];
 function App() {
@@ -65,14 +65,18 @@ function App() {
         ]);
         // }
     }, [mcpInfo, depotInfo, factoriesInfo, routeData]);
-    console.log(history);
+    // console.log(history);
     useEffect(() => {
         pushSuccessNoti();
         dataFetch(currentView.url, setEmployees);
     }, [currentView]);
+
     const changeEmployeeHandle = (view) => {
         setCurrentView(view);
     };
+
+    console.log(currentView.id)
+
     return (
         <MapContext.Provider
             value={{
@@ -110,7 +114,7 @@ function App() {
                 </div>
 
                 <div className={cx('sidenav', 'right-sidenav')}>
-                    <RightSideBarComponent content={employees} />
+                    <RightSideBarComponent content={employees} type={currentView.id} />
                 </div>
             </div>
         </MapContext.Provider>

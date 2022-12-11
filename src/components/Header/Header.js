@@ -34,7 +34,7 @@ function RenderToday() {
     return `${day}, ${month} ${date}, ${year}`;
 }
 
-const defaultFn = () => {};
+const defaultFn = () => { };
 export default function Header({ currentView = { title: 'Janitor', id: 0 }, onChangeEmployee = defaultFn }) {
     return (
         <>
@@ -51,9 +51,7 @@ export default function Header({ currentView = { title: 'Janitor', id: 0 }, onCh
                         <Menu items={MENU_ITEMS} onChange={onChangeEmployee}>
                             <div className={cx('choose-btn')}>
                                 {currentView.title}
-                                <div className={cx('icons')}>
-                                    <FontAwesomeIcon icon={faSortDown}></FontAwesomeIcon>
-                                </div>
+                                <i class="fa-solid fa-chevron-down"></i>
                             </div>
                         </Menu>
                         <div className={cx('date')}>{RenderToday()}</div>

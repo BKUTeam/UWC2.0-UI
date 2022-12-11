@@ -1,5 +1,7 @@
 import React from 'react';
-import './style.css';
+// import style from './style.module.scss';
+import classNames from 'classnames/bind';
+import './style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faUser } from '@fortawesome/free-regular-svg-icons';
 import {
@@ -12,6 +14,8 @@ import {
     faWarehouse,
     faDumpster,
 } from '@fortawesome/free-solid-svg-icons';
+
+// const cx = classNames.bind(style);
 
 export const LeftSlidenav = () => {
     return (
@@ -52,7 +56,7 @@ export const LeftSlidenav = () => {
                     </div>
                     <hr />
                     <div>
-                        <h3 className="title-links">Workers</h3>
+                        <h5 className="title-links">Workers</h5>
                         <div className="link-left-slidenav">
                             {/* <FaRegCalendar /> */}
                             <FontAwesomeIcon icon={faUser} />
@@ -65,7 +69,7 @@ export const LeftSlidenav = () => {
                     </div>
                     <hr />
                     <div>
-                        <h3 className="title-links">Facilities</h3>
+                        <h5 className="title-links">Facilities</h5>
                         <div className="link-left-slidenav">
                             <FontAwesomeIcon icon={faDumpster} />
                             <span>MCP</span>

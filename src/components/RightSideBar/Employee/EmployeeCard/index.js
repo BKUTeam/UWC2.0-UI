@@ -3,7 +3,7 @@ import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 import CardStyle from './card.module.scss';
 import axios, { Axios } from 'axios';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { MapContext } from '~/App';
 
 const cx = classNames.bind(CardStyle);
@@ -12,17 +12,17 @@ const defaultCollectorInfo = {
     id: 1,
     vehicle_id: 1,
     depot_id: 1,
+    state: 'FREE'
 };
 
-function fetchRouteForCollector(collectorId) {}
+function fetchRouteForCollector(collectorId) { }
 
-function EmployeeCardComponent({ content = defaultCollectorInfo, onClick }) {
+function EmployeeCardComponent({ content, onClick }) {
     const mapContext = useContext(MapContext);
-
     const handleOnClick = () => {
         onClick({
             show: true,
-            id: content['Collector ID'],
+            id: content['Employee ID'],
             firsttime: true,
         });
     };
@@ -44,23 +44,29 @@ function EmployeeCardComponent({ content = defaultCollectorInfo, onClick }) {
 
     return (
         <div className={cx('card-wrapper')}>
-            <div className={cx('card-header')} onClick={handleOnClick}>
-                <div className={cx('bold')}>{content.name}</div>
-                <div className={cx('card-back-btn')}>
-                    <FontAwesomeIcon icon={faCircleChevronRight} />
+            <div className={content['State'] === 'FREE' ? cx('free') : cx('busy')}>
+                <div className={cx('card-header')} onClick={handleOnClick}>
+                    <div className={cx('bold')}>{content.name}</div>
+                    <div className={cx('card-back-btn')}>
+                        <FontAwesomeIcon icon={faCircleChevronRight} />
+                    </div>
                 </div>
+                <div className={cx('card-content')}>
+                    {Object.keys(content).map((key) => {
+                        return key === 'name' ? null : (
+                            <div key={key} className={cx('card-content-item')}>
+                                <div className={cx('bold')}>{key}:</div>
+                                <div className={cx('medium')}>{content[key]}</div>
+                            </div>
+                        );
+                    })}
+                </div>
+                <div className={cx('btn-container')}>
+                    <button className={cx('btn')} onClick={fetchRouteForCollector}>Assign</button>
+
+                </div>
+
             </div>
-            <div className={cx('card-content')}>
-                {Object.keys(content).map((key) => {
-                    return key === 'name' ? null : (
-                        <div key={key} className={cx('card-content-item')}>
-                            <div className={cx('bold')}>{key}:</div>
-                            <div className={cx('medium')}>{content[key]}</div>
-                        </div>
-                    );
-                })}
-            </div>
-            <button onClick={fetchRouteForCollector}>Assign</button>
         </div>
     );
 }

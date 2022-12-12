@@ -81,7 +81,7 @@ export const LeftSlidenav = () => {
                     </div>
                 </div>
             </div>
-            <button className="button-back">Back</button>
+            {/* <button className="button-back">Back</button> */}
         </div>
     );
 };

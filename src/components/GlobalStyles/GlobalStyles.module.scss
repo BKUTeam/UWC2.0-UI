@@ -11,6 +11,10 @@
     padding: 0;
 }
 
+body::-webkit-scrollbar{
+    display: none;
+}
+
 .app {
     display: flex;
     flex-flow: row wrap;

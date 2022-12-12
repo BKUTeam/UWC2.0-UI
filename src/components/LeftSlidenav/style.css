@@ -83,9 +83,13 @@
 .container-left-sidenav-message span,
 .link-left-slidenav > span {
     /* font-family: 'Montserrat'; */
-    display: inline-block;
+    /* display: inline-block; */
     margin-left: 10px;
 }
+
+.link-left-slidenav .icon {
+    width: 25px;
+} 
 .link-left-slidenav.active {
     background: rgba(0, 0, 0, 0.2);
 }

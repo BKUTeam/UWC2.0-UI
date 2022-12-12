@@ -17,7 +17,7 @@ const defaultCollectorInfo = {
 
 function fetchRouteForCollector(collectorId) { }
 
-function EmployeeCardComponent({ content, onClick }) {
+function EmployeeCardComponent({ content = defaultCollectorInfo, onClick, type }) {
     const mapContext = useContext(MapContext);
     const handleOnClick = () => {
         onClick({
@@ -29,7 +29,7 @@ function EmployeeCardComponent({ content, onClick }) {
 
     const fetchRouteForCollector = () => {
         const options = {
-            url: `http://localhost:5000/api/task-assignment/routes?collector-id=${content['Collector ID']}`,
+            url: `http://localhost:5000/api/task-assignment/routes?collector-id=${content['Employee ID']}`,
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -61,10 +61,12 @@ function EmployeeCardComponent({ content, onClick }) {
                         );
                     })}
                 </div>
-                <div className={cx('btn-container')}>
-                    <button className={cx('btn')} onClick={fetchRouteForCollector}>Assign</button>
+                {type === '1' &&
+                    <div className={cx('btn-container')}>
+                        <button className={cx('btn')} onClick={fetchRouteForCollector}>Assign</button>
+                    </div>
+                }
 
-                </div>
 
             </div>
         </div>

@@ -103,6 +103,7 @@ function ListEmployee({ content = [], type }) {
                             // 'State': employeeItem.state
                         }}
                         onClick={onClickCardHandle}
+                        type={type}
                     ></EmployeeCard>
                 );
             })

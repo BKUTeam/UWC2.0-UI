@@ -12,6 +12,7 @@ const defaultCollectorInfo = {
     id: 1,
     vehicle_id: 1,
     depot_id: 1,
+    State: 'FREE',
 };
 
 function fetchRouteForCollector(collectorId) {}
@@ -41,9 +42,14 @@ function EmployeeCardComponent({ content = defaultCollectorInfo, onClick }) {
             mapContext.setRoutes(response.data.routes);
         });
     };
-
+    console.log(content);
+    const classes = cx(
+        'employee-state',
+        content.State === 'FREE' ? 'free' : content.state === 'BUSY' ? 'busy' : 'notenough',
+    );
     return (
         <div className={cx('card-wrapper')}>
+            <div className={classes}></div>
             <div className={cx('card-header')} onClick={handleOnClick}>
                 <div className={cx('bold')}>{content.name}</div>
                 <div className={cx('card-back-btn')}>
@@ -51,8 +57,12 @@ function EmployeeCardComponent({ content = defaultCollectorInfo, onClick }) {
                 </div>
             </div>
             <div className={cx('card-content')}>
+                <div className={cx('card-content-item')}>
+                    <div className={cx('bold')}>STATUS</div>
+                    <div className={cx('medium')}>{content.State}</div>
+                </div>
                 {Object.keys(content).map((key) => {
-                    return key === 'name' ? null : (
+                    return key === 'name' || key === 'State' ? null : (
                         <div key={key} className={cx('card-content-item')}>
                             <div className={cx('bold')}>{key}:</div>
                             <div className={cx('medium')}>{content[key]}</div>

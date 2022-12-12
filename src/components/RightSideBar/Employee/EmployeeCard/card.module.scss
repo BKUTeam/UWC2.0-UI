@@ -23,7 +23,7 @@
     align-items: center;
     justify-content: space-between;
     font-size: 14px;
-    padding: 0 0 0 10px;
+    padding: 0 0 0 15px;
     width: 100%;
     cursor: pointer;
 }
@@ -44,6 +44,7 @@
 }
 .card-wrapper {
     border: 1px solid black;
+    border-left: 0;
     border-radius: 12px;
     min-height: 100px;
     min-width: 150px;
@@ -52,6 +53,7 @@
     justify-content: space-between;
     font-size: 12px;
     margin: 10px;
+    position: relative;
 }
 .card-content {
     margin-top: 10px;
@@ -66,7 +68,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 0px 10px;
+    padding: 0px 15px;
 }
 
 .bold {
@@ -74,4 +76,27 @@
 }
 .medium {
     font-weight: 400px;
+}
+.employee-state {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 100%;
+    min-width: 10px;
+    background-color: aqua;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border: 0;
+}
+
+.free {
+    background-color: darkgreen;
+}
+.busy {
+    background-color: darkred;
+}
+
+.notenough {
+    background-color: darkorange;
 }

@@ -67,7 +67,8 @@ function App() {
     }, [mcpInfo, depotInfo, factoriesInfo, routeData]);
     console.log(history);
     useEffect(() => {
-        pushSuccessNoti();
+        console.log('refetch');
+        console.log(currentView.url);
         dataFetch(currentView.url, setEmployees);
     }, [currentView]);
     const changeEmployeeHandle = (view) => {

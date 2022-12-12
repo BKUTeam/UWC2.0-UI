@@ -7,6 +7,7 @@ const dataFetch = async (url, setContent) => {
             return data;
         });
     setContent(rsp);
+    console.log(rsp);
 };
 
 export { dataFetch };

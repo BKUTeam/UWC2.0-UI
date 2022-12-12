@@ -34,23 +34,24 @@ export const LeftSlidenav = () => {
                 <div className="header-left-slidenav-body">
                     <div>
                         <div className="link-left-slidenav">
-                            <FontAwesomeIcon icon={faCalendar} /> <span>Today</span>
+                            <FontAwesomeIcon className='icon' icon={faCalendar} />
+                            <span>Today</span>
                         </div>
                         <div className="link-left-slidenav">
-                            <FontAwesomeIcon icon={faClock} />
+                            <FontAwesomeIcon className='icon' icon={faClock} />
                             <span>Schedule</span>
                         </div>
                         <div className="link-left-slidenav">
                             <div className="container-left-sidenav-message">
                                 <div>
-                                    <FontAwesomeIcon icon={faMessage} />
+                                    <FontAwesomeIcon className='icon' icon={faMessage} />
                                     <span>Message</span>
                                 </div>
                                 <div className="number-message">1</div>
                             </div>
                         </div>
                         <div className="link-left-slidenav active">
-                            <FontAwesomeIcon icon={faTruck} />
+                            <FontAwesomeIcon className='icon' icon={faTruck} />
                             <span>Dispatch</span>
                         </div>
                     </div>
@@ -59,11 +60,11 @@ export const LeftSlidenav = () => {
                         <h5 className="title-links">Workers</h5>
                         <div className="link-left-slidenav">
                             {/* <FaRegCalendar /> */}
-                            <FontAwesomeIcon icon={faUser} />
+                            <FontAwesomeIcon className='icon' icon={faUser} />
                             <span>Employees</span>
                         </div>
                         <div className="link-left-slidenav">
-                            <FontAwesomeIcon icon={faTruckMoving} />
+                            <FontAwesomeIcon className='icon' icon={faTruckMoving} />
                             <span>Veticles</span>
                         </div>
                     </div>
@@ -71,11 +72,11 @@ export const LeftSlidenav = () => {
                     <div>
                         <h5 className="title-links">Facilities</h5>
                         <div className="link-left-slidenav">
-                            <FontAwesomeIcon icon={faDumpster} />
+                            <FontAwesomeIcon className='icon' icon={faDumpster} />
                             <span>MCP</span>
                         </div>
                         <div className="link-left-slidenav">
-                            <FontAwesomeIcon icon={faWarehouse} />
+                            <FontAwesomeIcon className='icon' icon={faWarehouse} />
                             <span>Depot</span>
                         </div>
                     </div>

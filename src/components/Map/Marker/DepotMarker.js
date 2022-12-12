@@ -59,6 +59,7 @@ const defaultDepotPopupContent = {
     Vehicle: 2,
 };
 function DepotMarker({ item }) {
+    // console.log(item);
     // console.log('Render depot');
     const [show, setShow] = useState(false);
     const [content, setContent] = useState(defaultDepotPopupContent);
@@ -81,7 +82,7 @@ function DepotMarker({ item }) {
                     Workers: data.worker_amount,
                     Collectors: data.collector_amount,
                     Janitors: data.janitor_amount,
-                    Vehicle: data.vehical_amount,
+                    Vehicle: data.vehicle_amount,
                 });
             };
             dataFetch('http://localhost:5000/api/resources/depots/' + item.id, setContent);

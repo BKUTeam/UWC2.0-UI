@@ -67,6 +67,7 @@ function ListEmployee({ content = [] }) {
                               'Collector ID': collectorItem.id,
                               'Vehicle ID': collectorItem.vehicle_id,
                               'Depot ID': collectorItem.depot_id,
+                              State: collectorItem.state,
                           }}
                           onClick={onClickCollectorCardHandle}
                       ></EmployeeCard>

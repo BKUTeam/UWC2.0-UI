@@ -13,10 +13,8 @@ const cx = classNames.bind(styles);
 
 function Map() {
     const context = useContext(MapContext);
-    // console.log(context);
-    const [history] = context.history.slice(-1);
-    // console.log(history);
-    // console.log(history);
+    console.log(context.history);
+    const history = context.history.slice(-1)[0];
     const [state, setState] = useState(defaultViewport);
     return (
         <div className={cx('map-wrapper')}>

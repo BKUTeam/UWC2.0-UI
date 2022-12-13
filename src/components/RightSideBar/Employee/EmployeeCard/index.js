@@ -12,21 +12,21 @@ const defaultCollectorInfo = {
     id: 1,
     vehicle_id: 1,
     depot_id: 1,
-    state: 'FREE'
+    state: 'FREE',
 };
 
-function fetchRouteForCollector(collectorId) { }
+function fetchRouteForCollector(collectorId) {}
 
-function EmployeeCardComponent({ content = defaultCollectorInfo, onClick, type }) {
+function EmployeeCard({ content = defaultCollectorInfo, onClick, type }) {
     const mapContext = useContext(MapContext);
     const handleOnClick = () => {
+        // console.log(content['Employee ID']);
         onClick({
             show: true,
             id: content['Employee ID'],
             firsttime: true,
         });
     };
-
     const fetchRouteForCollector = () => {
         const options = {
             url: `http://localhost:5000/api/task-assignment/routes?collector-id=${content['Employee ID']}`,
@@ -38,7 +38,11 @@ function EmployeeCardComponent({ content = defaultCollectorInfo, onClick, type }
         };
 
         axios(options).then((response) => {
-            mapContext.setRoutes(response.data.routes);
+            mapContext.setRoutes({
+                employee_id: content['Employee ID'],
+                routes: response.data.routes,
+            });
+            mapContext.setAssigning(true);
         });
     };
 
@@ -61,16 +65,16 @@ function EmployeeCardComponent({ content = defaultCollectorInfo, onClick, type }
                         );
                     })}
                 </div>
-                {type === '1' &&
+                {type === '1' && content['State'] === 'FREE' && (
                     <div className={cx('btn-container')}>
-                        <button className={cx('btn')} onClick={fetchRouteForCollector}>Assign</button>
+                        <button className={cx('btn')} onClick={fetchRouteForCollector}>
+                            Assign
+                        </button>
                     </div>
-                }
-
-
+                )}
             </div>
         </div>
     );
 }
 
-export default EmployeeCardComponent;
+export default EmployeeCard;

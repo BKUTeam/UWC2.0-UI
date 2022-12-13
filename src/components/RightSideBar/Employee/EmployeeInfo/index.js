@@ -19,7 +19,7 @@ const defaultCollectorInfo = {
     },
     routes: [],
 };
-function EmployeeInfoComponent({ content, onClick }) {
+function EmployeeInfo({ content, onClick }) {
     const onBackHandle = () => {
         onClick({ show: false, id: null, firsttime: true });
     };
@@ -28,7 +28,7 @@ function EmployeeInfoComponent({ content, onClick }) {
         <div className={cx('info-wrapper')}>
             <div className={cx('info-header')}>
                 <div className={cx('back-btn')} onClick={onBackHandle}>
-                    <i class="fa-solid fa-angle-left"></i>
+                    <FontAwesomeIcon icon={faAngleLeft} />
                     Quay lại
                 </div>
                 <div className={cx('title')}>{content.name}</div>
@@ -36,24 +36,24 @@ function EmployeeInfoComponent({ content, onClick }) {
             <div className={cx('info-content')}>
                 {content.body
                     ? Object.keys(content.body).map((key, index) => {
-                        return (
-                            <div key={index} className={cx('content-item')}>
-                                <div key={index + 'left'} className={cx('bold')}>
-                                    {key}
-                                </div>
-                                <div key={index + 'right'} className={cx('medium')}>
-                                    {content.body[key]}
-                                </div>
-                            </div>
-                        );
-                    })
+                          return (
+                              <div key={index} className={cx('content-item')}>
+                                  <div key={index + 'left'} className={cx('bold')}>
+                                      {key}
+                                  </div>
+                                  <div key={index + 'right'} className={cx('medium')}>
+                                      {content.body[key]}
+                                  </div>
+                              </div>
+                          );
+                      })
                     : null}
             </div>
             {content.routes ? (
                 <div className={cx('route')}>
                     <div className={cx('title')}>Đường đi thu gom đã giao</div>
                     {content.routes.map((route, index) => (
-                        <RouteCard key={index} content={route} />
+                        <RouteCard key={index} route={route} />
                     ))}
                 </div>
             ) : null}
@@ -61,4 +61,4 @@ function EmployeeInfoComponent({ content, onClick }) {
     );
 }
 
-export default EmployeeInfoComponent;
+export default EmployeeInfo;

@@ -1,9 +1,20 @@
 import classNames from 'classnames/bind';
-import { Col, Row } from 'react-bootstrap';
-import styles from './card.module.scss';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useContext } from 'react';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { MapContext } from '~/App';
+import styles from './Route.module.scss';
+import { useEffect } from 'react';
 
 const cx = classNames.bind(styles);
-
+// const defaultRouteInfo = {
+//     ID: 0,
+//     NumMCP: 6,
+//     Duration: '2h3p',
+//     Distance: '2km',
+//     Weight: '16t',
+// };
 const defaultRoute = {
     list_node: [],
     render_route: {
@@ -17,10 +28,11 @@ const defaultRoute = {
     },
     id: -1,
 };
-function RouteCard({
+function RouteComponent({
     route = defaultRoute,
     onClickProp = {
         HandleRenderMap: () => {},
+        HandleAssignRoute: () => {},
     },
 }) {
     const content = {
@@ -30,15 +42,22 @@ function RouteCard({
         Distance: route.render_route.routes[0].distance,
         Weight: route.render_route.routes[0].weight,
     };
-    console.log(route);
+    // console.log(route);
     const onClickRenderHandle = () => {
-        // console.log('render');
         onClickProp.HandleRenderMap(route);
+    };
+    const onClickAssignHandle = () => {
+        onClickProp.HandleAssignRoute(route.id);
     };
     return (
         <div className={cx('card-wrapper')} onClick={onClickRenderHandle}>
             <div className={cx('card-header')}>
-                <div className={cx('card-tile', 'bold')}>{content.NumMCP} Waypoints</div>
+                <div className={cx('card-title', 'bold')}>{content.NumMCP} Waypoints</div>
+                <div className={cx('card-actions')}>
+                    <div className={cx('card-actions-btn')}>
+                        <FontAwesomeIcon icon={faPlus} onClick={onClickAssignHandle} />
+                    </div>
+                </div>
             </div>
             <div className={cx('card-content')}>
                 {Object.keys(content).map((key) => {
@@ -53,5 +72,4 @@ function RouteCard({
         </div>
     );
 }
-
-export default RouteCard;
+export default RouteComponent;

@@ -8,11 +8,11 @@ import { Wrapper as PopupWrapper } from '~/components/Header/Poper';
 import { Dropdown } from 'bootstrap';
 
 const cx = classNames.bind(styles);
-const defaultFn = () => { };
+const defaultFn = () => {};
 function Menu({ children, items = [], onChange }) {
     const renderItem = () => {
         return items.map((item, index) => {
-            return <MenuItem key={index} item={item} onClick={onChange}></MenuItem>;
+            return <MenuItem key={index} item={item}></MenuItem>;
         });
     };
     return (
@@ -28,7 +28,7 @@ function Menu({ children, items = [], onChange }) {
                     <PopupWrapper>{renderItem()}</PopupWrapper>
                 </div>
             )}
-            onHide={() => { }}
+            onHide={() => {}}
         >
             {children}
         </Tippy>

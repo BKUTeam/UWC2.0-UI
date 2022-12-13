@@ -1,36 +1,39 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
-import CardStyle from './card.module.scss';
+import styles from './card.module.scss';
 import axios, { Axios } from 'axios';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { MapContext } from '~/App';
 
-const cx = classNames.bind(CardStyle);
+const cx = classNames.bind(styles);
 const defaultCollectorInfo = {
     name: 'Cristiano Ronaldo',
     id: 1,
     vehicle_id: 1,
     depot_id: 1,
-    State: 'FREE',
+    state: 'FREE',
 };
 
 function fetchRouteForCollector(collectorId) {}
 
-function EmployeeCardComponent({ content = defaultCollectorInfo, onClick }) {
+function EmployeeCard({ content = defaultCollectorInfo, onClick, type }) {
     const mapContext = useContext(MapContext);
-
     const handleOnClick = () => {
+        // console.log(content['Employee ID']);
         onClick({
             show: true,
-            id: content['Collector ID'],
+            id: content['Employee ID'],
             firsttime: true,
         });
     };
-
     const fetchRouteForCollector = () => {
+        mapContext.setRoutes({
+            employee_id: content['Employee ID'],
+            routes: [],
+        });
         const options = {
-            url: `http://localhost:5000/api/task-assignment/routes?collector-id=${content['Collector ID']}`,
+            url: `http://localhost:5000/api/task-assignment/routes?collector-id=${content['Employee ID']}`,
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -39,40 +42,46 @@ function EmployeeCardComponent({ content = defaultCollectorInfo, onClick }) {
         };
 
         axios(options).then((response) => {
-            mapContext.setRoutes(response.data.routes);
+            mapContext.setRoutes({
+                employee_id: content['Employee ID'],
+                routes: response.data.routes,
+            });
+            mapContext.setAssigning(true);
         });
     };
-    console.log(content);
     const classes = cx(
         'employee-state',
-        content.State === 'FREE' ? 'free' : content.state === 'BUSY' ? 'busy' : 'notenough',
+        content.state === 'FREE' ? 'free' : content.state === 'BUSY' ? 'busy' : 'notenough',
     );
     return (
         <div className={cx('card-wrapper')}>
-            <div className={classes}></div>
-            <div className={cx('card-header')} onClick={handleOnClick}>
-                <div className={cx('bold')}>{content.name}</div>
-                <div className={cx('card-back-btn')}>
-                    <FontAwesomeIcon icon={faCircleChevronRight} />
+            <div className={content['State'] === 'FREE' ? cx('free') : cx('busy')}>
+                <div className={cx('card-header')} onClick={handleOnClick}>
+                    <div className={cx('bold')}>{content.name}</div>
+                    <div className={cx('card-back-btn')}>
+                        <FontAwesomeIcon icon={faCircleChevronRight} />
+                    </div>
                 </div>
-            </div>
-            <div className={cx('card-content')}>
-                <div className={cx('card-content-item')}>
-                    <div className={cx('bold')}>STATUS</div>
-                    <div className={cx('medium')}>{content.State}</div>
+                <div className={cx('card-content')}>
+                    {Object.keys(content).map((key) => {
+                        return key === 'name' ? null : (
+                            <div key={key} className={cx('card-content-item')}>
+                                <div className={cx('bold')}>{key}:</div>
+                                <div className={cx('medium')}>{content[key]}</div>
+                            </div>
+                        );
+                    })}
                 </div>
-                {Object.keys(content).map((key) => {
-                    return key === 'name' || key === 'State' ? null : (
-                        <div key={key} className={cx('card-content-item')}>
-                            <div className={cx('bold')}>{key}:</div>
-                            <div className={cx('medium')}>{content[key]}</div>
-                        </div>
-                    );
-                })}
+                {type === '1' && content['State'] === 'FREE' && (
+                    <div className={cx('btn-container')}>
+                        <button className={cx('btn')} onClick={fetchRouteForCollector}>
+                            Assign
+                        </button>
+                    </div>
+                )}
             </div>
-            <button onClick={fetchRouteForCollector}>Assign</button>
         </div>
     );
 }
 
-export default EmployeeCardComponent;
+export default EmployeeCard;

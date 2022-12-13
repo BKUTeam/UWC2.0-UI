@@ -24,16 +24,6 @@
     padding: 50px;
 }
 
-// .left-sidenav {
-//     position: absolute;
-//     left: 0;
-//     min-width: 60px;
-//     width: var(--default-left-sidebar-width-percent);
-//     min-height: 100vh;
-//     background-color: green;
-//     z-index: 3;
-// }
-
 .content {
     position: absolute;
     right: 0;
@@ -44,7 +34,8 @@
 }
 .header {
     position: absolute;
-    height: 50px;
+    display: block;
+    min-height: 50px;
     width: 100%;
     background-color: aqua;
     z-index: 5;
@@ -67,7 +58,7 @@
     height: calc(100% - 110px);
     display: block;
     min-width: 200px;
-    width: 300px;
+    width: 320px;
     background-color: white;
     z-index: 3;
     overflow-y: scroll;

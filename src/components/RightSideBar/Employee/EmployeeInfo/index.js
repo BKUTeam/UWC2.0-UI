@@ -19,7 +19,7 @@ const defaultCollectorInfo = {
     },
     routes: [],
 };
-function EmployeeInfoComponent({ content = defaultCollectorInfo, onClick }) {
+function EmployeeInfo({ content, onClick }) {
     const onBackHandle = () => {
         onClick({ show: false, id: null, firsttime: true });
     };
@@ -53,7 +53,7 @@ function EmployeeInfoComponent({ content = defaultCollectorInfo, onClick }) {
                 <div className={cx('route')}>
                     <div className={cx('title')}>Đường đi thu gom đã giao</div>
                     {content.routes.map((route, index) => (
-                        <RouteCard key={index} content={route} />
+                        <RouteCard key={index} route={route} />
                     ))}
                 </div>
             ) : null}
@@ -61,4 +61,4 @@ function EmployeeInfoComponent({ content = defaultCollectorInfo, onClick }) {
     );
 }
 
-export default EmployeeInfoComponent;
+export default EmployeeInfo;

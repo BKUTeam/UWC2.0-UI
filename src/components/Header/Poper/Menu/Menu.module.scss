@@ -9,14 +9,15 @@
     border-radius: 0px;
     padding: 0 0 0 10px;
     &:hover {
-        background: rgba(22, 24, 35, 0.03);
+        background: rgba(22, 24, 35, 0.081);
+        cursor: pointer;
     }
 }
 .menu-item-wrapper {
     display: flex;
     align-items: center;
     height: 42px;
-    padding: 10px 0px 10px 0px;
+    // padding: 10px 0px 10px 0px;
 }
 .menu-box {
     padding: 0;

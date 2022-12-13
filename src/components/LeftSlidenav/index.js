@@ -1,5 +1,7 @@
 import React from 'react';
-import './style.css';
+// import style from './style.module.scss';
+import classNames from 'classnames/bind';
+import './style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faUser } from '@fortawesome/free-regular-svg-icons';
 import {
@@ -12,6 +14,8 @@ import {
     faWarehouse,
     faDumpster,
 } from '@fortawesome/free-solid-svg-icons';
+
+// const cx = classNames.bind(style);
 
 export const LeftSlidenav = () => {
     return (
@@ -30,54 +34,55 @@ export const LeftSlidenav = () => {
                 <div className="header-left-slidenav-body">
                     <div>
                         <div className="link-left-slidenav">
-                            <FontAwesomeIcon icon={faCalendar} /> <span>Today</span>
+                            <FontAwesomeIcon className='icon' icon={faCalendar} />
+                            <span>Today</span>
                         </div>
                         <div className="link-left-slidenav">
-                            <FontAwesomeIcon icon={faClock} />
+                            <FontAwesomeIcon className='icon' icon={faClock} />
                             <span>Schedule</span>
                         </div>
                         <div className="link-left-slidenav">
                             <div className="container-left-sidenav-message">
                                 <div>
-                                    <FontAwesomeIcon icon={faMessage} />
+                                    <FontAwesomeIcon className='icon' icon={faMessage} />
                                     <span>Message</span>
                                 </div>
                                 <div className="number-message">1</div>
                             </div>
                         </div>
                         <div className="link-left-slidenav active">
-                            <FontAwesomeIcon icon={faTruck} />
+                            <FontAwesomeIcon className='icon' icon={faTruck} />
                             <span>Dispatch</span>
                         </div>
                     </div>
                     <hr />
                     <div>
-                        <h3 className="title-links">Workers</h3>
+                        <h5 className="title-links">Workers</h5>
                         <div className="link-left-slidenav">
                             {/* <FaRegCalendar /> */}
-                            <FontAwesomeIcon icon={faUser} />
+                            <FontAwesomeIcon className='icon' icon={faUser} />
                             <span>Employees</span>
                         </div>
                         <div className="link-left-slidenav">
-                            <FontAwesomeIcon icon={faTruckMoving} />
+                            <FontAwesomeIcon className='icon' icon={faTruckMoving} />
                             <span>Veticles</span>
                         </div>
                     </div>
                     <hr />
                     <div>
-                        <h3 className="title-links">Facilities</h3>
+                        <h5 className="title-links">Facilities</h5>
                         <div className="link-left-slidenav">
-                            <FontAwesomeIcon icon={faDumpster} />
+                            <FontAwesomeIcon className='icon' icon={faDumpster} />
                             <span>MCP</span>
                         </div>
                         <div className="link-left-slidenav">
-                            <FontAwesomeIcon icon={faWarehouse} />
+                            <FontAwesomeIcon className='icon' icon={faWarehouse} />
                             <span>Depot</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <button className="button-back">Back</button>
+            {/* <button className="button-back">Back</button> */}
         </div>
     );
 };

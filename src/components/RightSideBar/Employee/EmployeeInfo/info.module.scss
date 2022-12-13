@@ -40,7 +40,10 @@
     border-color: rgba(22, 24, 35, 0.12);
     color: #333;
     cursor: pointer;
-
+    justify-content: space-between;
+    // box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.05);
+    border: solid 1px;
+    
     &:hover {
         background-color: rgba(22, 24, 35, 0.1);
     }

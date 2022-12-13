@@ -8,8 +8,8 @@
     top: 0;
     position: absolute;
     left: 0;
-    min-width: 60px;
-    width: 15%;
+    /* min-width: 60px; */
+    width: 230px;
     min-height: 100vh;
     background-color: green;
     z-index: 3;
@@ -24,6 +24,7 @@
     top: 0;
     width: 230px;
     z-index: 10;
+    font-size: 16px;
 }
 .header-left-slidenav-header {
     background: linear-gradient(
@@ -32,7 +33,7 @@
         rgba(255, 255, 255, 0.126065) 0.01%,
         rgba(255, 255, 255, 0) 100%
     );
-    filter: drop-shadow(3px 2px 5px rgba(0, 0, 0, 0.25));
+    box-shadow: 3px 2px 5px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
 }
 .header-left-slidenav-header {
@@ -51,14 +52,14 @@
     line-height: 12px;
     font-style: normal;
     font-weight: 500;
-    font-size: 15px;
+    /* font-size: 15px; */
     align-items: center;
 }
 .header-left-slidenav-header .role-admin {
     margin: 0;
     font-style: normal;
     font-weight: 200;
-    font-size: 13px;
+    /* font-size: 13px; */
     line-height: 10px;
     opacity: 0.8;
 }
@@ -71,21 +72,23 @@
     margin-top: 30px;
 }
 .link-left-slidenav {
-    font-size: 25px;
     display: flex;
     cursor: pointer;
     align-items: center;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
+    height: 50px;
     padding: 5px;
     transition: all 0.3s linear;
 }
 .container-left-sidenav-message span,
 .link-left-slidenav > span {
     /* font-family: 'Montserrat'; */
-    display: inline-block;
+    /* display: inline-block; */
     margin-left: 10px;
-    font-size: 17px;
-    font-size: 200;
+}
+
+.link-left-slidenav .icon {
+    width: 25px;
 }
 .link-left-slidenav.active {
     background: rgba(0, 0, 0, 0.2);
@@ -94,7 +97,6 @@
     background: rgba(0, 0, 0, 0.2);
 }
 .header-left-slidenav-body .title-links {
-    font-size: 30px;
     margin-bottom: 20px;
 }
 .container-left-slidenav .button-back {
@@ -114,7 +116,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 17px;
     font-weight: bold;
     width: 25px;
     height: 25px;

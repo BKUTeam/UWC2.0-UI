@@ -5,8 +5,9 @@ import Styles from './header.module.scss';
 import classNames from 'classnames/bind';
 import Menu from './Poper/Menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleInfo, faSortDown } from '@fortawesome/free-solid-svg-icons';
+import { faCircleInfo, faChevronDown, faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { MENU_ITEMS } from '~/App';
+// import { faChevronDown } from 'node_modules/@fortawesome/free-solid-svg-icons/index';
 const cx = classNames.bind(Styles);
 function RenderToday() {
     const weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -35,7 +36,7 @@ function RenderToday() {
 }
 
 const defaultFn = () => {};
-export default function Header({ currentView = { title: 'Janitor', id: 0 }, onChangeEmployee = defaultFn }) {
+export default function Header({ currentView = { title: 'Janitor', id: 0 } }) {
     return (
         <>
             <header>
@@ -48,12 +49,10 @@ export default function Header({ currentView = { title: 'Janitor', id: 0 }, onCh
                 </div>
                 <div className={cx('third')}>
                     <div className={cx('actions')}>
-                        <Menu items={MENU_ITEMS} onChange={onChangeEmployee}>
+                        <Menu items={MENU_ITEMS}>
                             <div className={cx('choose-btn')}>
                                 {currentView.title}
-                                <div className={cx('icons')}>
-                                    <FontAwesomeIcon icon={faSortDown}></FontAwesomeIcon>
-                                </div>
+                                <FontAwesomeIcon icon={faChevronDown}></FontAwesomeIcon>
                             </div>
                         </Menu>
                         <div className={cx('date')}>{RenderToday()}</div>

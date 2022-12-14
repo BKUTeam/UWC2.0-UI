@@ -32,6 +32,7 @@ function EmployeeCard({ content = defaultCollectorInfo, onClick, type }) {
             employee_id: content['Employee ID'],
             routes: [],
         });
+        mapContext.setAssigning(true);
         const options = {
             url: `http://localhost:5000/api/task-assignment/routes?collector-id=${content['Employee ID']}`,
             method: 'GET',
@@ -46,7 +47,7 @@ function EmployeeCard({ content = defaultCollectorInfo, onClick, type }) {
                 employee_id: content['Employee ID'],
                 routes: response.data.routes,
             });
-            mapContext.setAssigning(true);
+            mapContext.setAssigning(false);
         });
     };
     const classes = cx(

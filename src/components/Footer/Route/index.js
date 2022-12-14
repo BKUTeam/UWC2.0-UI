@@ -61,30 +61,37 @@ function RouteListComponent({}) {
         ]);
     };
     const HandleAssignRoute = (route_id) => {
-        // send request to assign route
+        mapContext.setAssigning(true);
         const assignRoute = async (route_id, employee_id) => {
             await axios
                 .post(
                     `http://localhost:5000/api/task-assignment/routes?collector-id=${employee_id}&route-id=${route_id}&action=ASSIGN`,
                 )
                 .then((res) => {
-                    // console.log(res);
+                    const routes = mapContext.routes.routes;
+                    for (var i = 0; i < routes.length; i++) {
+                        if (routes[i].id === route_id) {
+                            routes.splice(i, 1);
+                        }
+                    }
+                    mapContext.setRoutes({
+                        employee_id: mapContext.routes.employee_id,
+                        routes: routes,
+                    });
+                    mapContext.setAssigning(false);
                 })
                 .catch((err) => {
                     console.log(err);
                 });
         };
-        // console.log('assign route');
+        assignRoute(route_id, routes.employee_id);
         const newEmployees = mapContext.employees;
-        newEmployees.forEach((item, index) => {
+        newEmployees.forEach((item) => {
             if (item.id === routes.employee_id) {
                 item.state = 'BUSY';
             }
         });
-        // console.log(routes);
-        assignRoute(route_id, routes.employee_id);
         mapContext.setEmployees(newEmployees);
-        mapContext.setAssigning(false);
     };
     const RouteOnClickProps = {
         HandleRenderMap: HandleRenderMap,
@@ -100,6 +107,54 @@ function RouteListComponent({}) {
     const ToggleShow = () => {
         setShow(!show);
     };
+    const handleGetRouteByMCPPool = () => {
+        // mapContext.setRoutes({
+        //     employee_id: content['Employee ID'],
+        //     routes: [],
+        // });
+        mapContext.setAssigning(true);
+        const options = {
+            url: `http://localhost:5000/api/task-assignment/routes?collector-id=${mapContext.routes.employee_id}&use-mcp-pool=true`,
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8',
+            },
+        };
+        axios(options).then((response) => {
+            let newRoutes = response.data.routes;
+            newRoutes.forEach((item) => {
+                item.new = 'Pool';
+            });
+            mapContext.setRoutes({
+                employee_id: mapContext.routes.employee_id,
+                routes: mapContext.routes.routes.concat(newRoutes),
+            });
+            mapContext.setAssigning(false);
+        });
+    };
+    const handelGetRouteByReduceThreshhold = () => {
+        mapContext.setAssigning(true);
+        const options = {
+            url: `http://localhost:5000/api/task-assignment/routes?collector-id=${mapContext.routes.employee_id}&use-low-threshold=true`,
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8',
+            },
+        };
+        axios(options).then((response) => {
+            let newRoutes = response.data.routes;
+            newRoutes.forEach((item) => {
+                item.new = 'Threshold';
+            });
+            mapContext.setRoutes({
+                employee_id: mapContext.routes.employee_id,
+                routes: mapContext.routes.routes.concat(newRoutes),
+            });
+            mapContext.setAssigning(false);
+        });
+    };
     return show ? (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
@@ -112,25 +167,30 @@ function RouteListComponent({}) {
                         Back
                     </div>
                 </div>
-                <div className={cx('title')}>Route Component</div>
+                <div className={cx('title')}>Route</div>
                 <div className={cx('right-actions')}>
-                    <div className={cx('btn')}>MCPPool</div>
-                    <div className={cx('btn')}>Reducethreshold</div>
+                    <div className={cx('btn')} onClick={handleGetRouteByMCPPool}>
+                        MCPPool
+                    </div>
+                    <div className={cx('btn')} onClick={handelGetRouteByReduceThreshhold}>
+                        Reducethreshold
+                    </div>
                 </div>
             </div>
             <div className={cx('routes-content')}>
-                {routes.routes.length > 0 ? (
+                {mapContext.assigning ? (
+                    <HalfMalf text={'Loading...'} weight={'150px'} height={'150px'}></HalfMalf>
+                ) : routes.routes.length > 0 ? (
                     routes.routes.map((routeItem, index) => {
                         return (
                             <RouteComponent
                                 key={index}
                                 route={routeItem}
                                 onClickProp={RouteOnClickProps}
+                                state={routeItem.new}
                             ></RouteComponent>
                         );
                     })
-                ) : mapContext.assigning ? (
-                    <HalfMalf text={'Loading...'} weight={'150px'} height={'150px'}></HalfMalf>
                 ) : null}
             </div>
         </div>

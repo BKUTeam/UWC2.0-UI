@@ -34,6 +34,7 @@ function RouteComponent({
         HandleRenderMap: () => {},
         HandleAssignRoute: () => {},
     },
+    state = 'default',
 }) {
     const content = {
         ID: route.id,
@@ -46,7 +47,8 @@ function RouteComponent({
     const onClickRenderHandle = () => {
         onClickProp.HandleRenderMap(route);
     };
-    const onClickAssignHandle = () => {
+    const onClickAssignHandle = (event) => {
+        event.stopPropagation();
         onClickProp.HandleAssignRoute(route.id);
     };
     return (
@@ -54,12 +56,16 @@ function RouteComponent({
             <div className={cx('card-header')}>
                 <div className={cx('card-title', 'bold')}>{content.NumMCP} Waypoints</div>
                 <div className={cx('card-actions')}>
-                    <div className={cx('card-actions-btn')}>
-                        <FontAwesomeIcon icon={faPlus} onClick={onClickAssignHandle} />
+                    <div className={cx('card-actions-btn')} onClick={onClickAssignHandle}>
+                        <FontAwesomeIcon icon={faPlus} />
                     </div>
                 </div>
             </div>
             <div className={cx('card-content')}>
+                <div className={cx('card-content-item')}>
+                    <div className={cx('bold')}>Origin</div>
+                    <div className={cx('medium')}>{state}</div>
+                </div>
                 {Object.keys(content).map((key) => {
                     return key === 'NumMCP' ? null : (
                         <div key={key} className={cx('card-content-item')}>

@@ -17,7 +17,6 @@ function ListEmployee({}) {
         state: 'FREE',
     });
     const [empState, setempState] = useState('free');
-    // console.log(mapContext);
     useEffect(() => {
         if (!mapContext.assigning) {
             console.log('re-render');

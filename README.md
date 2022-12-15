@@ -2,6 +2,9 @@
 
 ## Source tree:
 ```
+├── config-overrides.js
+├── jsconfig.json
+├── Makefile
 ├── package.json
 ├── package-lock.json
 ├── public
@@ -13,6 +16,7 @@
 │   ├── data
 │   ├── index.js
 │   ├── pages
+│   ├── __test__
 │   └── utils
 └── view
     └── readme.md
@@ -30,6 +34,9 @@
  <br/><br/>
 ## Tech included:
 - `ReactJS` Base source
+- `Babelrc` Source path config
+- `prettierrc` Code rule
+- `SCSS modules` Style systems
  <br/><br/>
 # Getting Started with Create React App
 
@@ -38,6 +45,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm i`
+
+Install all dependency packages of project
 
 ### `npm start`
 

@@ -22,7 +22,6 @@ const defaultRoute = {
     id: -1,
 };
 function RouteComponent({
-    employee = { vehicle_cap: 0 },
     route = defaultRoute,
     onClickProp = {
         HandleRenderMap: () => {},
@@ -41,9 +40,8 @@ function RouteComponent({
         Duration: route.render_route.routes[0].duration,
         Distance: route.render_route.routes[0].distance,
         Weight: weight,
-        CapWeight: employee.vehicle_cap,
+        CapWeight: route.vehicle_cap * 2,
     };
-    console.log(employee);
     const onClickRenderHandle = () => {
         onClickProp.HandleRenderMap(route);
     };
@@ -81,13 +79,13 @@ function RouteComponent({
                 </div>
                 <div className={cx('card-content-item')}>
                     <div className={cx('bold')}>Distance</div>
-                    <div className={cx('medium')}>{Number.parseFloat(content.Distance / 1000).toFixed(2)}</div>
+                    <div className={cx('medium')}>{Number.parseFloat(content.Distance / 1000).toFixed(2)} km</div>
                 </div>
                 <div className={cx('card-content-item')}>
                     <div className={cx('bold')}>Weight</div>
                     <div className={cx('medium')}>
-                        {Number.parseFloat(content.Weight / 1000).toFixed(2)} /{' '}
-                        {Number.parseFloat(Number.parseFloat(content.CapWeight) / 1000).toFixed(2)}
+                        {Number.parseFloat(content.Weight / 1000).toFixed(2)}/
+                        {Number.parseFloat(Number.parseFloat(content.CapWeight) / 1000).toFixed(2)} t
                     </div>
                 </div>
             </div>

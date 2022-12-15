@@ -3,8 +3,10 @@ import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 import styles from './card.module.scss';
 import axios from 'axios';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { MapContext } from '~/App';
+import OptionModal from '~/utils/modal';
+import { handleGetRouteByMCPPool, handelGetRouteByReduceThreshhold } from '~/components/Footer/Route/index';
 
 const cx = classNames.bind(styles);
 const defaultCollectorInfo = {
@@ -16,6 +18,10 @@ const defaultCollectorInfo = {
 };
 
 function EmployeeCard({ content = defaultCollectorInfo, onClick, type }) {
+
+    const [renderOptionModal, setRenderOptionModal] = useState(false)
+    const [modalData, setModalData] = useState({})
+
     const mapContext = useContext(MapContext);
     const handleOnClick = () => {
         // console.log(content['Employee ID']);
@@ -42,6 +48,40 @@ function EmployeeCard({ content = defaultCollectorInfo, onClick, type }) {
         };
 
         axios(options).then((response) => {
+
+            let has_valid_route = false
+
+            console.log(response.data)
+            const routes = response.data.routes
+            for (let i = 0; i < routes.length; i++) {
+                if (!routes[i].listNode) {
+                    continue
+                }
+
+                let loaded = 0
+                for (let j = 0; j < routes[i].length; j++) {
+                    loaded += routes[i][j].loaded
+                }
+
+                if (loaded >= routes.vehicle_cap * 2 * 0.7) {
+                    has_valid_route = true
+                    break
+                }
+            }
+
+            if (!has_valid_route) {
+                const modalData = {
+                    title: "Warning",
+                    message: "Dont have enough expected routes!",
+                    list_button_title: ["MCP Pool", "Low Threshold"],
+                    list_button_callback: [handleGetRouteByMCPPool, handelGetRouteByReduceThreshhold],
+                    setRender: setRenderOptionModal,
+                    MapContext: mapContext
+                }
+                setModalData(modalData)
+                setRenderOptionModal(true)
+            }
+
             mapContext.setRoutes({
                 employee: content,
                 routes: response.data.routes,
@@ -50,33 +90,37 @@ function EmployeeCard({ content = defaultCollectorInfo, onClick, type }) {
         });
     };
     return (
-        <div className={cx('card-wrapper')}>
-            <div className={content['State'] === 'FREE' ? cx('free') : cx('busy')}>
-                <div className={cx('card-header')} onClick={handleOnClick}>
-                    <div className={cx('bold')}>{content.name}</div>
-                    <div className={cx('card-back-btn')}>
-                        <FontAwesomeIcon icon={faCircleChevronRight} />
+        <>
+            {renderOptionModal && <OptionModal {...modalData} />}
+
+            <div className={cx('card-wrapper')}>
+                <div className={content['State'] === 'FREE' ? cx('free') : cx('busy')}>
+                    <div className={cx('card-header')} onClick={handleOnClick}>
+                        <div className={cx('bold')}>{content.name}</div>
+                        <div className={cx('card-back-btn')}>
+                            <FontAwesomeIcon icon={faCircleChevronRight} />
+                        </div>
                     </div>
-                </div>
-                <div className={cx('card-content')}>
-                    {Object.keys(content).map((key) => {
-                        return key === 'name' || key === 'vehicle_cap' ? null : (
-                            <div key={key} className={cx('card-content-item')}>
-                                <div className={cx('bold')}>{key}:</div>
-                                <div className={cx('medium')}>{content[key]}</div>
-                            </div>
-                        );
-                    })}
-                </div>
-                {type === '1' && content['State'] === 'FREE' && (
-                    <div className={cx('btn-container')}>
-                        <button className={cx('btn')} onClick={fetchRouteForCollector}>
-                            Assign
-                        </button>
+                    <div className={cx('card-content')}>
+                        {Object.keys(content).map((key) => {
+                            return key === 'name' || key === 'vehicle_cap' ? null : (
+                                <div key={key} className={cx('card-content-item')}>
+                                    <div className={cx('bold')}>{key}:</div>
+                                    <div className={cx('medium')}>{content[key]}</div>
+                                </div>
+                            );
+                        })}
                     </div>
-                )}
+                    {type === '1' && content['State'] === 'FREE' && (
+                        <div className={cx('btn-container')}>
+                            <button className={cx('btn')} onClick={fetchRouteForCollector}>
+                                Assign
+                            </button>
+                        </div>
+                    )}
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 

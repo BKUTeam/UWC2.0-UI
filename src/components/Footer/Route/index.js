@@ -14,7 +14,57 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleChevronDown, faCircleChevronUp } from '@fortawesome/free-solid-svg-icons';
 const cx = classNames.bind(styles);
 
-function RouteListComponent({}) {
+export const handleGetRouteByMCPPool = (mapContext) => {
+    // mapContext.setRoutes({
+    //     employee_id: content['Employee ID'],
+    //     routes: [],
+    // });
+    mapContext.setAssigning(true);
+    const options = {
+        url: `http://localhost:5000/api/task-assignment/routes?collector-id=${mapContext.routes.employee['Employee ID']}&use-mcp-pool=true`,
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8',
+        },
+    };
+    axios(options).then((response) => {
+        let newRoutes = response.data.routes;
+        newRoutes.forEach((item) => {
+            item.new = 'Pool';
+        });
+        mapContext.setRoutes({
+            employee: mapContext.routes.employee,
+            routes: mapContext.routes.routes.concat(newRoutes),
+        });
+        mapContext.setAssigning(false);
+    });
+};
+export const handelGetRouteByReduceThreshhold = (mapContext) => {
+    mapContext.setAssigning(true);
+    const options = {
+        url: `http://localhost:5000/api/task-assignment/routes?collector-id=${mapContext.routes.employee['Employee ID']}&use-low-threshold=true`,
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8',
+        },
+    };
+    axios(options).then((response) => {
+        let newRoutes = response.data.routes;
+        newRoutes.forEach((item) => {
+            item.new = 'Threshold';
+        });
+        mapContext.setRoutes({
+            employee: mapContext.routes.employee,
+            routes: mapContext.routes.routes.concat(newRoutes),
+        });
+        mapContext.setAssigning(false);
+    });
+};
+
+
+function RouteListComponent({ }) {
     const mapContext = useContext(MapContext);
     const [routes, setRoutes] = useState({
         employee: {},
@@ -107,54 +157,6 @@ function RouteListComponent({}) {
     const ToggleShow = () => {
         setShow(!show);
     };
-    const handleGetRouteByMCPPool = () => {
-        // mapContext.setRoutes({
-        //     employee_id: content['Employee ID'],
-        //     routes: [],
-        // });
-        mapContext.setAssigning(true);
-        const options = {
-            url: `http://localhost:5000/api/task-assignment/routes?collector-id=${mapContext.routes.employee['Employee ID']}&use-mcp-pool=true`,
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json;charset=UTF-8',
-            },
-        };
-        axios(options).then((response) => {
-            let newRoutes = response.data.routes;
-            newRoutes.forEach((item) => {
-                item.new = 'Pool';
-            });
-            mapContext.setRoutes({
-                employee: mapContext.routes.employee,
-                routes: mapContext.routes.routes.concat(newRoutes),
-            });
-            mapContext.setAssigning(false);
-        });
-    };
-    const handelGetRouteByReduceThreshhold = () => {
-        mapContext.setAssigning(true);
-        const options = {
-            url: `http://localhost:5000/api/task-assignment/routes?collector-id=${mapContext.routes.employee['Employee ID']}&use-low-threshold=true`,
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json;charset=UTF-8',
-            },
-        };
-        axios(options).then((response) => {
-            let newRoutes = response.data.routes;
-            newRoutes.forEach((item) => {
-                item.new = 'Threshold';
-            });
-            mapContext.setRoutes({
-                employee: mapContext.routes.employee,
-                routes: mapContext.routes.routes.concat(newRoutes),
-            });
-            mapContext.setAssigning(false);
-        });
-    };
     return show ? (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
@@ -169,10 +171,14 @@ function RouteListComponent({}) {
                 </div>
                 <div className={cx('title')}>Route</div>
                 <div className={cx('right-actions')}>
-                    <div className={cx('btn')} onClick={handleGetRouteByMCPPool}>
+                    <div className={cx('btn')} onClick={() => {
+                        handleGetRouteByMCPPool(mapContext)
+                    }}>
                         MCPPool
                     </div>
-                    <div className={cx('btn')} onClick={handelGetRouteByReduceThreshhold}>
+                    <div className={cx('btn')} onClick={() => {
+                        handelGetRouteByReduceThreshhold(mapContext)
+                    }}>
                         Reducethreshold
                     </div>
                 </div>

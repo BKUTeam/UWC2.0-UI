@@ -4,8 +4,7 @@ import EmployeeInfo from '~/components/RightSideBar/Employee/EmployeeInfo';
 import styles from '../RightSideNav.module.scss';
 import { useState } from 'react';
 import axios from 'axios';
-import { MapContext } from '~/App';
-import { useEffect, useContext } from 'react';
+import { useEffect } from 'react';
 
 const cx = classnames.bind(styles);
 function JanitorList({ content }) {

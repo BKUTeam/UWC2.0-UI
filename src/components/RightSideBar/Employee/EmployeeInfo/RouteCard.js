@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind';
-import { Col, Row } from 'react-bootstrap';
 import styles from './card.module.scss';
 
 const cx = classNames.bind(styles);
@@ -32,7 +31,6 @@ function RouteCard({
     };
     console.log(route);
     const onClickRenderHandle = () => {
-        // console.log('render');
         onClickProp.HandleRenderMap(route);
     };
     return (

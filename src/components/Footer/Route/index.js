@@ -84,10 +84,10 @@ function RouteListComponent({}) {
                     console.log(err);
                 });
         };
-        assignRoute(route_id, routes.employee.employee_id);
+        assignRoute(route_id, routes.employee['Employee ID']);
         const newEmployees = mapContext.employees;
         newEmployees.forEach((item) => {
-            if (item.id === routes.employee.employee_id) {
+            if (item.id === routes.employee['Employee ID']) {
                 item.state = 'BUSY';
             }
         });
@@ -114,7 +114,7 @@ function RouteListComponent({}) {
         // });
         mapContext.setAssigning(true);
         const options = {
-            url: `http://localhost:5000/api/task-assignment/routes?collector-id=${mapContext.routes.employee.employee_id}&use-mcp-pool=true`,
+            url: `http://localhost:5000/api/task-assignment/routes?collector-id=${mapContext.routes.employee['Employee ID']}&use-mcp-pool=true`,
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -136,7 +136,7 @@ function RouteListComponent({}) {
     const handelGetRouteByReduceThreshhold = () => {
         mapContext.setAssigning(true);
         const options = {
-            url: `http://localhost:5000/api/task-assignment/routes?collector-id=${mapContext.routes.employee_id}&use-low-threshold=true`,
+            url: `http://localhost:5000/api/task-assignment/routes?collector-id=${mapContext.routes.employee['Employee ID']}&use-low-threshold=true`,
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -184,7 +184,6 @@ function RouteListComponent({}) {
                     routes.routes.map((routeItem, index) => {
                         return (
                             <RouteComponent
-                                employee={mapContext.routes.employee}
                                 key={index}
                                 route={routeItem}
                                 onClickProp={RouteOnClickProps}

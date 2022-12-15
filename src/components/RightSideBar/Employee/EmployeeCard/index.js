@@ -27,9 +27,10 @@ function EmployeeCard({ content = defaultCollectorInfo, onClick, type }) {
             firsttime: true,
         });
     };
+    console.log(content);
     const fetchRouteForCollector = () => {
         mapContext.setRoutes({
-            employee_id: content['Employee ID'],
+            employee: content,
             routes: [],
         });
         mapContext.setAssigning(true);

@@ -44,7 +44,7 @@ function EmployeeCard({ content = defaultCollectorInfo, onClick, type }) {
 
         axios(options).then((response) => {
             mapContext.setRoutes({
-                employee_id: content['Employee ID'],
+                employee: content,
                 routes: response.data.routes,
             });
             mapContext.setAssigning(false);
@@ -65,7 +65,7 @@ function EmployeeCard({ content = defaultCollectorInfo, onClick, type }) {
                 </div>
                 <div className={cx('card-content')}>
                     {Object.keys(content).map((key) => {
-                        return key === 'name' ? null : (
+                        return key === 'name' || key === 'vehicle_cap' ? null : (
                             <div key={key} className={cx('card-content-item')}>
                                 <div className={cx('bold')}>{key}:</div>
                                 <div className={cx('medium')}>{content[key]}</div>

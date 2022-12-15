@@ -8,13 +8,6 @@ import styles from './Route.module.scss';
 import { useEffect } from 'react';
 
 const cx = classNames.bind(styles);
-// const defaultRouteInfo = {
-//     ID: 0,
-//     NumMCP: 6,
-//     Duration: '2h3p',
-//     Distance: '2km',
-//     Weight: '16t',
-// };
 const defaultRoute = {
     list_node: [],
     render_route: {
@@ -29,6 +22,7 @@ const defaultRoute = {
     id: -1,
 };
 function RouteComponent({
+    employee = { vehicle_cap: 0 },
     route = defaultRoute,
     onClickProp = {
         HandleRenderMap: () => {},
@@ -36,14 +30,20 @@ function RouteComponent({
     },
     state = 'default',
 }) {
+    console.log(route);
+    var weight = 0;
+    route.list_node.forEach((node) => {
+        weight += node.loaded;
+    });
     const content = {
         ID: route.id,
         NumMCP: route.list_node.length || 0,
         Duration: route.render_route.routes[0].duration,
         Distance: route.render_route.routes[0].distance,
-        Weight: route.render_route.routes[0].weight,
+        Weight: weight,
+        CapWeight: employee.vehicle_cap,
     };
-    // console.log(route);
+    console.log(employee);
     const onClickRenderHandle = () => {
         onClickProp.HandleRenderMap(route);
     };
@@ -51,6 +51,11 @@ function RouteComponent({
         event.stopPropagation();
         onClickProp.HandleAssignRoute(route.id);
     };
+    function convertToTime(time = 0) {
+        var hours = Math.floor(parseInt(time) / 3600);
+        var minutes = Math.floor((parseInt(time) - hours * 3600) / 60);
+        return `${hours}h${minutes}m`;
+    }
     return (
         <div className={cx('card-wrapper')} onClick={onClickRenderHandle}>
             <div className={cx('card-header')}>
@@ -63,17 +68,28 @@ function RouteComponent({
             </div>
             <div className={cx('card-content')}>
                 <div className={cx('card-content-item')}>
+                    <div className={cx('bold')}>ID</div>
+                    <div className={cx('medium')}>{content.ID}</div>
+                </div>
+                <div className={cx('card-content-item')}>
                     <div className={cx('bold')}>Origin</div>
                     <div className={cx('medium')}>{state}</div>
                 </div>
-                {Object.keys(content).map((key) => {
-                    return key === 'NumMCP' ? null : (
-                        <div key={key} className={cx('card-content-item')}>
-                            <div className={cx('bold')}>{key}</div>
-                            <div className={cx('medium')}>{content[key]}</div>
-                        </div>
-                    );
-                })}
+                <div className={cx('card-content-item')}>
+                    <div className={cx('bold')}>Duration</div>
+                    <div className={cx('medium')}>{convertToTime(content.Duration)}</div>
+                </div>
+                <div className={cx('card-content-item')}>
+                    <div className={cx('bold')}>Distance</div>
+                    <div className={cx('medium')}>{Number.parseFloat(content.Distance / 1000).toFixed(2)}</div>
+                </div>
+                <div className={cx('card-content-item')}>
+                    <div className={cx('bold')}>Weight</div>
+                    <div className={cx('medium')}>
+                        {Number.parseFloat(content.Weight / 1000).toFixed(2)} /{' '}
+                        {Number.parseFloat(Number.parseFloat(content.CapWeight) / 1000).toFixed(2)}
+                    </div>
+                </div>
             </div>
         </div>
     );

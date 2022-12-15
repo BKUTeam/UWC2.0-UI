@@ -17,7 +17,7 @@ const cx = classNames.bind(styles);
 function RouteListComponent({}) {
     const mapContext = useContext(MapContext);
     const [routes, setRoutes] = useState({
-        employee_id: -1,
+        employee: {},
         routes: [],
     });
     const [show, setShow] = useState(false);
@@ -61,8 +61,8 @@ function RouteListComponent({}) {
         ]);
     };
     const HandleAssignRoute = (route_id) => {
-        mapContext.setAssigning(true);
         const assignRoute = async (route_id, employee_id) => {
+            mapContext.setAssigning(true);
             await axios
                 .post(
                     `http://localhost:5000/api/task-assignment/routes?collector-id=${employee_id}&route-id=${route_id}&action=ASSIGN`,
@@ -75,7 +75,7 @@ function RouteListComponent({}) {
                         }
                     }
                     mapContext.setRoutes({
-                        employee_id: mapContext.routes.employee_id,
+                        employee: mapContext.routes.employee,
                         routes: routes,
                     });
                     mapContext.setAssigning(false);
@@ -84,10 +84,10 @@ function RouteListComponent({}) {
                     console.log(err);
                 });
         };
-        assignRoute(route_id, routes.employee_id);
+        assignRoute(route_id, routes.employee.employee_id);
         const newEmployees = mapContext.employees;
         newEmployees.forEach((item) => {
-            if (item.id === routes.employee_id) {
+            if (item.id === routes.employee.employee_id) {
                 item.state = 'BUSY';
             }
         });
@@ -114,7 +114,7 @@ function RouteListComponent({}) {
         // });
         mapContext.setAssigning(true);
         const options = {
-            url: `http://localhost:5000/api/task-assignment/routes?collector-id=${mapContext.routes.employee_id}&use-mcp-pool=true`,
+            url: `http://localhost:5000/api/task-assignment/routes?collector-id=${mapContext.routes.employee.employee_id}&use-mcp-pool=true`,
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -127,7 +127,7 @@ function RouteListComponent({}) {
                 item.new = 'Pool';
             });
             mapContext.setRoutes({
-                employee_id: mapContext.routes.employee_id,
+                employee: mapContext.routes.employee,
                 routes: mapContext.routes.routes.concat(newRoutes),
             });
             mapContext.setAssigning(false);
@@ -149,7 +149,7 @@ function RouteListComponent({}) {
                 item.new = 'Threshold';
             });
             mapContext.setRoutes({
-                employee_id: mapContext.routes.employee_id,
+                employee: mapContext.routes.employee,
                 routes: mapContext.routes.routes.concat(newRoutes),
             });
             mapContext.setAssigning(false);
@@ -184,6 +184,7 @@ function RouteListComponent({}) {
                     routes.routes.map((routeItem, index) => {
                         return (
                             <RouteComponent
+                                employee={mapContext.routes.employee}
                                 key={index}
                                 route={routeItem}
                                 onClickProp={RouteOnClickProps}

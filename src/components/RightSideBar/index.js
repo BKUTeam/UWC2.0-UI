@@ -12,10 +12,6 @@ function ListEmployee({}) {
     const mapContext = useContext(MapContext);
     const [collectors, setCollectors] = useState({ free: [], busy: [] });
     const [janitors, setJanitors] = useState([]);
-    const [currentView, setCurrentView] = useState({
-        type: 1,
-        state: 'FREE',
-    });
     const [empState, setempState] = useState('free');
     useEffect(() => {
         if (!mapContext.assigning) {

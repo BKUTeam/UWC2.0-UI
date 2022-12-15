@@ -2,8 +2,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 import styles from './card.module.scss';
-import axios, { Axios } from 'axios';
-import { useContext, useState } from 'react';
+import axios from 'axios';
+import { useContext } from 'react';
 import { MapContext } from '~/App';
 
 const cx = classNames.bind(styles);
@@ -14,8 +14,6 @@ const defaultCollectorInfo = {
     depot_id: 1,
     state: 'FREE',
 };
-
-function fetchRouteForCollector(collectorId) {}
 
 function EmployeeCard({ content = defaultCollectorInfo, onClick, type }) {
     const mapContext = useContext(MapContext);
@@ -51,10 +49,6 @@ function EmployeeCard({ content = defaultCollectorInfo, onClick, type }) {
             mapContext.setAssigning(false);
         });
     };
-    const classes = cx(
-        'employee-state',
-        content.state === 'FREE' ? 'free' : content.state === 'BUSY' ? 'busy' : 'notenough',
-    );
     return (
         <div className={cx('card-wrapper')}>
             <div className={content['State'] === 'FREE' ? cx('free') : cx('busy')}>

@@ -1,0 +1,28 @@
+.menu-item {
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    border-radius: 0px;
+    padding: 0 0 0 10px;
+    &:hover {
+        background: rgba(22, 24, 35, 0.081);
+        cursor: pointer;
+    }
+}
+.menu-item-wrapper {
+    display: flex;
+    align-items: center;
+    height: 42px;
+    // padding: 10px 0px 10px 0px;
+}
+.menu-box {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}

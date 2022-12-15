@@ -35,7 +35,6 @@ function App() {
     const [factoriesInfo, setFactoriesInfo] = useState([]);
     const [employees, setEmployees] = useState([]);
     const [currentView, setCurrentView] = useState(MENU_ITEMS[1]);
-    const [firstMount, setFirstMount] = useState(true);
     const [history, setHistory] = useState([
         {
             mcps: [],
@@ -44,7 +43,6 @@ function App() {
             routes: [],
         },
     ]);
-    console.log(currentView);
     let init_data = {};
     const [assigningTask, setAssigningTask] = useState(false);
     // State of list routes
@@ -63,7 +61,6 @@ function App() {
                 ])
                 .then(
                     axios.spread((res1, res2, res3) => {
-                        console.log(res3);
                         return {
                             mcps: res1.data,
                             depots: res2.data,
@@ -81,33 +78,9 @@ function App() {
     }, []);
 
     useEffect(() => {
-        console.log('refetch');
-        console.log(currentView.url);
         dataFetch(currentView.url, setEmployees);
     }, [currentView]);
 
-    // useEffect(() => {
-    //     if (firstMount) {
-    //         setFirstMount(false);
-    //     } else {
-    //         setHistory([
-    //             ...history,
-    //             {
-    //                 mcps: mcpInfo,
-    //                 depots: depotInfo,
-    //                 factories: factoriesInfo,
-    //                 routes: routeData,
-    //             },
-    //         ]);
-    //     }
-    //     // }
-    // }, [mcpInfo, depotInfo, factoriesInfo, routeData]);
-    // console.log(history);
-
-    const changeEmployeeHandle = (view) => {
-        setCurrentView(view);
-    };
-    // console.log(routes);
     return (
         <MapContext.Provider
             value={{

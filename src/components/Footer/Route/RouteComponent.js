@@ -24,12 +24,11 @@ const defaultRoute = {
 function RouteComponent({
     route = defaultRoute,
     onClickProp = {
-        HandleRenderMap: () => {},
-        HandleAssignRoute: () => {},
+        HandleRenderMap: () => { },
+        HandleAssignRoute: () => { },
     },
     state = 'default',
 }) {
-    console.log(route);
     var weight = 0;
     route.list_node.forEach((node) => {
         weight += node.loaded;

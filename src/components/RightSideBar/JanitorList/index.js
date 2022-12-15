@@ -8,14 +8,12 @@ import { useEffect } from 'react';
 
 const cx = classnames.bind(styles);
 function JanitorList({ content }) {
-    console.log(content);
-    // const mapContext = useContext(MapContext);
-    // const content = mapContext.employees;
     const [janitor, setJanitor] = useState({});
     const [showInfo, setShow] = useState({ show: false, id: 0, firsttime: true });
     const onClickCardHandle = (show) => {
         setShow(show);
     };
+    console.log(content)
     useEffect(() => {
         if (showInfo.show && showInfo.firsttime) {
             const getData = async (id, setJanitorData) => {
@@ -57,20 +55,20 @@ function JanitorList({ content }) {
             <div className={cx('content-list')}>
                 {content.length > 0
                     ? content.map((janitor, index) => {
-                          return (
-                              <EmployeeCard
-                                  key={index}
-                                  content={{
-                                      name: janitor.name,
-                                      'Employee ID': janitor.id,
-                                      'Depot ID': janitor.depot_id,
-                                      'MCP ID': janitor.mcp_id,
-                                      // 'State': employeeItem.state
-                                  }}
-                                  onClick={onClickCardHandle}
-                              ></EmployeeCard>
-                          );
-                      })
+                        return (
+                            <EmployeeCard
+                                key={index}
+                                content={{
+                                    name: janitor.name,
+                                    'Employee ID': janitor.id,
+                                    'Depot ID': janitor.depot_id,
+                                    'MCP ID': janitor.mcp_id,
+                                    // 'State': janitor.state
+                                }}
+                                onClick={onClickCardHandle}
+                            ></EmployeeCard>
+                        );
+                    })
                     : null}
             </div>
         );

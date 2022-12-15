@@ -94,6 +94,7 @@ const defaultViewport = {
         height: '100%',
         latitude: center.lat,
         longitude: center.lng,
+        pitch: 60,
         zoom: 15,
     },
 };

@@ -16,7 +16,6 @@ function CollectorList({ content }) {
     useEffect(() => {
         if (showInfo.show && showInfo.firsttime) {
             const getData = async (id, setCollectorData) => {
-                console.log(id);
                 await axios
                     .all([
                         axios.get('http://localhost:5000/api/resources/collectors/' + id),

@@ -8,14 +8,13 @@ import { useEffect, useContext } from 'react';
 import styles from './RightSideNav.module.scss';
 
 const cx = classnames.bind(styles);
-function ListEmployee({}) {
+function ListEmployee() {
     const mapContext = useContext(MapContext);
     const [collectors, setCollectors] = useState({ free: [], busy: [] });
     const [janitors, setJanitors] = useState([]);
     const [empState, setempState] = useState('free');
     useEffect(() => {
         if (!mapContext.assigning) {
-            console.log('re-render');
             if (mapContext.currentView.id == 1) {
                 let busyCollectors = [];
                 let freeCollectors = [];

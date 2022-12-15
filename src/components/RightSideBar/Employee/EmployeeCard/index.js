@@ -24,14 +24,12 @@ function EmployeeCard({ content = defaultCollectorInfo, onClick, type }) {
 
     const mapContext = useContext(MapContext);
     const handleOnClick = () => {
-        // console.log(content['Employee ID']);
         onClick({
             show: true,
             id: content['Employee ID'],
             firsttime: true,
         });
     };
-    console.log(content);
     const fetchRouteForCollector = () => {
         mapContext.setRoutes({
             employee: content,
@@ -94,7 +92,7 @@ function EmployeeCard({ content = defaultCollectorInfo, onClick, type }) {
             {renderOptionModal && <OptionModal {...modalData} />}
 
             <div className={cx('card-wrapper')}>
-                <div className={content['State'] === 'FREE' ? cx('free') : cx('busy')}>
+                <div className={content['State'] === 'BUSY' ? cx('busy') : cx('free')}>
                     <div className={cx('card-header')} onClick={handleOnClick}>
                         <div className={cx('bold')}>{content.name}</div>
                         <div className={cx('card-back-btn')}>

@@ -90,11 +90,12 @@ function RouteListComponent({ }) {
         let factories = [];
         for (const item of route.list_node) {
             if (item.type === 'DEPOT') {
-                depots.push({ id: item.id, gg_location: item.location });
+                depots.push({ id: item.object_id, gg_location: item.location });
             } else if (item.type === 'MCP') {
-                mcps.push({ id: item.id, gg_location: item.location });
+                console.log(item)
+                mcps.push({ id: item.object_id, gg_location: item.location });
             } else if (item.type === 'FACTORY') {
-                factories.push({ id: item.id, gg_location: item.location });
+                factories.push({ id: item.object_id, gg_location: item.location });
             }
         }
         // mapContext.setMcps(mcps);

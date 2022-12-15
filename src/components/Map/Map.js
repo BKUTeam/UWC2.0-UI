@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import ReactMapGL, { Layer, Source } from 'react-map-gl';
 
 import styles from './Map.module.scss';
@@ -7,13 +7,11 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { Marker } from './Marker';
 import { defaultViewport, mapStyles } from './data';
 import { MapContext } from '~/App';
-import { useRef } from 'react';
 
 const cx = classNames.bind(styles);
 
 function Map() {
     const context = useContext(MapContext);
-    console.log(context.history);
     const history = context.history.slice(-1)[0];
     const [state, setState] = useState(defaultViewport);
     return (
@@ -32,12 +30,6 @@ function Map() {
                         return <Marker key={index} item={depot} type="depot"></Marker>;
                     })}
                     {history.routes.map((route, index) => {
-                        {
-                            /* console.log('Rerender route'); */
-                        }
-                        {
-                            /* console.log(route.source); */
-                        }
                         return (
                             <Source
                                 key={index + route.route.source.data.geometry.coordinates[0][1] + route.id}

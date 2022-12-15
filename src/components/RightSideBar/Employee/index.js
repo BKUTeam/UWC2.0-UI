@@ -4,7 +4,6 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 function ListEmployee({ content = [] }) {
-    // console.log('re-render');
     const [collector, setCollector] = useState({});
     const [showInfo, setShow] = useState({ show: false, id: 0 });
     const onClickCollectorCardHandle = (show) => {
@@ -24,7 +23,6 @@ function ListEmployee({ content = [] }) {
                         }),
                     )
                     .then((data) => {
-                        // console.log(data);
                         return data;
                     });
                 setCollectorData({
@@ -59,20 +57,20 @@ function ListEmployee({ content = [] }) {
     } else {
         return content.length > 0
             ? content.map((collectorItem, index) => {
-                  return (
-                      <EmployeeCard
-                          key={index}
-                          content={{
-                              name: collectorItem.name,
-                              'Collector ID': collectorItem.id,
-                              'Vehicle ID': collectorItem.vehicle_id,
-                              'Depot ID': collectorItem.depot_id,
-                              State: collectorItem.state,
-                          }}
-                          onClick={onClickCollectorCardHandle}
-                      ></EmployeeCard>
-                  );
-              })
+                return (
+                    <EmployeeCard
+                        key={index}
+                        content={{
+                            name: collectorItem.name,
+                            'Collector ID': collectorItem.id,
+                            'Vehicle ID': collectorItem.vehicle_id,
+                            'Depot ID': collectorItem.depot_id,
+                            State: collectorItem.state,
+                        }}
+                        onClick={onClickCollectorCardHandle}
+                    ></EmployeeCard>
+                );
+            })
             : null;
     }
 }
